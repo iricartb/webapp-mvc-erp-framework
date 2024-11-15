@@ -1,0 +1,126 @@
+#document {
+   height: 100%;
+   width: 100%;
+   position: absolute;
+   top: 0%;
+   left: 0%;
+   overflow: hidden;
+}
+
+#div_error_container_header {
+   height: 20px;
+   width: 600px;
+   position: absolute;  
+   top: 50%; 
+   left: 50%; 
+   margin: -102px 0 0 -300px;
+   background-color: #F2BFB6;
+   
+   border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+   
+   -webkit-box-shadow: 0 10px 6px -6px #777;
+   -moz-box-shadow: 0 10px 6px -6px #777;
+   box-shadow: 0 10px 6px -6px #777;  
+}
+
+#div_error_container_header #div_error_container_header_text {
+   padding-left: 10px;
+   font-size: 14px;   
+}
+
+#div_error_container_body {
+   height: 150px;
+   width: 600px;
+   position: absolute;  
+   top: 50%; 
+   left: 50%; 
+   margin: -75px 0 0 -300px;
+   background-color: #F2BFB6;
+   
+   border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+   
+   -webkit-box-shadow: 0 10px 6px -6px #777;
+   -moz-box-shadow: 0 10px 6px -6px #777;
+   box-shadow: 0 10px 6px -6px #777;  
+}
+
+#div_error_container_body #div_error_container_body_box {
+   display: table;
+   height: 100%;   
+}             
+
+#div_error_container_body #div_error_container_body_box #div_error_container_body_box_image {
+   display: table-cell;
+   height: 100%;
+   vertical-align: middle;
+}
+
+#div_error_container_body #div_error_container_body_box #div_error_container_body_box_text {
+   display: table-cell;
+   padding-top: 50px;
+   padding-left: 20px;
+   padding-right: 30px;
+}
+
+#div_error_delete_record_container_header {
+   height: 20px;
+   width: 600px;
+   position: absolute;  
+   top: 50%; 
+   left: 50%; 
+   margin: -102px 0 0 -300px;
+   background-color: #B8C7D2;
+   
+   border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+   
+   -webkit-box-shadow: 0 10px 6px -6px #777;
+   -moz-box-shadow: 0 10px 6px -6px #777;
+   box-shadow: 0 10px 6px -6px #777;  
+}
+
+#div_error_delete_record_container_header #div_error_delete_record_container_header_text {
+   padding-left: 10px;
+   font-size: 14px;   
+}
+
+#div_error_delete_record_container_body {
+   height: 150px;
+   width: 600px;
+   position: absolute;  
+   top: 50%; 
+   left: 50%; 
+   margin: -75px 0 0 -300px;
+   background-color: #B8C7D2;
+   
+   border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+   
+   -webkit-box-shadow: 0 10px 6px -6px #777;
+   -moz-box-shadow: 0 10px 6px -6px #777;
+   box-shadow: 0 10px 6px -6px #777;
+}
+
+#div_error_delete_record_container_body #div_error_container_body_box {
+   display: table;
+   height: 100%;   
+}             
+
+#div_error_delete_record_container_body #div_error_container_body_box #div_error_container_body_box_image {
+   display: table-cell;
+   height: 100%;
+   vertical-align: middle;
+}
+
+#div_error_delete_record_container_body #div_error_container_body_box #div_error_container_body_box_text {
+   display: table-cell;
+   padding-top: 50px;
+   padding-left: 20px;
+   padding-right: 30px;
+}

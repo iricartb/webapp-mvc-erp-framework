@@ -1,0 +1,191 @@
+DROP TABLE IF EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_module_parameters`;
+DROP TABLE IF EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_form_daily_event_lines`;
+DROP TABLE IF EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_forms_daily_events`;
+DROP TABLE IF EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_form_task_employees`;
+DROP TABLE IF EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_form_task_departments`;
+DROP TABLE IF EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_form_task_components`;
+DROP TABLE IF EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_forms_tasks`;
+DROP TABLE IF EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_departments`;
+DROP TABLE IF EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_priorities`;
+DROP TABLE IF EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_scheduled_tasks_departments`;
+DROP TABLE IF EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_scheduled_tasks_supplies`;
+DROP TABLE IF EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_scheduled_tasks_components`;
+DROP TABLE IF EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_scheduled_tasks`;
+
+CREATE DATABASE IF NOT EXISTS `db_rainbow_plantmaintenancemanagement` CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_module_parameters` (    
+   `allow_create_working_part` TINYINT(1) NOT NULL DEFAULT 0,
+   `allow_users_create_tasks` TINYINT(1) NOT NULL DEFAULT 0
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_scheduled_tasks` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(50) NOT NULL,
+   `owner` VARCHAR(38) NOT NULL,
+   `priority` VARCHAR(20) NOT NULL,
+   `priority_number` INT NOT NULL,
+   `execution_date` DATETIME NOT NULL,
+   `id_zone` INT NOT NULL,
+   `id_region` INT NOT NULL,
+   `id_equipment` INT NOT NULL,
+   `task` VARCHAR(128) NOT NULL,
+   `type_task` VARCHAR(12) NOT NULL,
+   `repeat_minutes` INT NOT NULL DEFAULT 0,
+   `repeat_hours` INT NOT NULL DEFAULT 0,
+   `repeat_days` INT NOT NULL DEFAULT 0,
+   `repeat_months` INT NOT NULL DEFAULT 0,
+   `repeat_years` INT NOT NULL DEFAULT 0,
+   `alarm` TINYINT(1) NOT NULL DEFAULT 0,
+   `attachment` VARCHAR(255),
+   `id_user` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_zone`, `id_region`, `id_equipment`, `id_user`),
+   FOREIGN KEY (`id_zone`) REFERENCES `db_rainbow_common`.`zones`(`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`id_region`) REFERENCES `db_rainbow_common`.`regions`(`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`id_equipment`) REFERENCES `db_rainbow_common`.`equipments`(`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`id_user`) REFERENCES `db_rainbow_common`.`users`(`id`) ON DELETE CASCADE
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_scheduled_tasks_components` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `id_component` INT NOT NULL,
+   `id_scheduled_task` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_component`, `id_scheduled_task`),
+   FOREIGN KEY (`id_component`) REFERENCES `db_rainbow_common`.`components`(`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`id_scheduled_task`) REFERENCES `db_rainbow_plantmaintenancemanagement`.`maintenance_scheduled_tasks`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_component_foreignkey (`id_component`, `id_scheduled_task`)  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_scheduled_tasks_departments` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(40) NOT NULL,
+   `id_scheduled_task` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_scheduled_task`),
+   FOREIGN KEY (`id_scheduled_task`) REFERENCES `db_rainbow_plantmaintenancemanagement`.`maintenance_scheduled_tasks`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_name_foreignkey (`name`, `id_scheduled_task`)  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_priorities` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `description` VARCHAR(20) NOT NULL UNIQUE KEY,
+   `priority` INT NOT NULL, 
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_departments` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(40) NOT NULL UNIQUE KEY,
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_forms_tasks` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(50) NOT NULL,
+   `task` VARCHAR(128) NOT NULL,
+   `type_task` VARCHAR(12) NOT NULL,
+   `owner` VARCHAR(38) NOT NULL,
+   `priority` VARCHAR(20) NOT NULL,
+   `priority_number` INT NOT NULL, 
+   `working_part` INT NOT NULL DEFAULT 0,
+   `working_part_number` VARCHAR(20),
+   `working_part_owner` VARCHAR(38),
+   `id_warehouse_form_output` INT,
+   `id_zone` INT NOT NULL,
+   `zone` VARCHAR(40) NOT NULL, 
+   `id_region` INT NOT NULL,
+   `region` VARCHAR(40) NOT NULL,
+   `id_equipment` INT NOT NULL,
+   `equipment` VARCHAR(40) NOT NULL,
+   `failure_reason` VARCHAR(255),
+   `failure_solution` VARCHAR(255), 
+   `comments` VARCHAR(512),
+   `status` VARCHAR(32) NOT NULL,
+   `start_date` DATETIME NOT NULL,
+   `execution_date` DATETIME,
+   `end_date` DATETIME,
+   `attachment` VARCHAR(255),
+   `id_user` INT NOT NULL,
+   `id_scheduled_task` INT,
+   `admin` TINYINT(1) NOT NULL DEFAULT 0,
+   `data_completed` TINYINT(1) NOT NULL DEFAULT 0,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_zone`, `id_region`, `id_equipment`, `id_user`, `id_scheduled_task`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_form_task_components` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `id_component` INT NOT NULL,
+   `component` VARCHAR(40) NOT NULL,
+   `id_form_task` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_component`, `id_form_task`),
+   FOREIGN KEY (`id_form_task`) REFERENCES `db_rainbow_plantmaintenancemanagement`.`maintenance_forms_tasks`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_component_foreignkey (`id_component`, `id_form_task`)  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_form_task_supplies` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `id_supply` INT NOT NULL,
+   `supply` VARCHAR(20) NOT NULL,
+   `supply_code` VARCHAR(20) NOT NULL,
+   `quantity` INT NOT NULL DEFAULT 0,
+   `id_form_task` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_supply`, `id_form_task`),
+   FOREIGN KEY (`id_form_task`) REFERENCES `db_rainbow_plantmaintenancemanagement`.`maintenance_forms_tasks`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_supply_foreignkey (`id_supply`, `id_form_task`)  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_form_task_departments` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(40) NOT NULL,
+   `id_form_task` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_form_task`),
+   FOREIGN KEY (`id_form_task`) REFERENCES `db_rainbow_plantmaintenancemanagement`.`maintenance_forms_tasks`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_name_foreignkey (`name`, `id_form_task`)  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_form_task_employees` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(38) NOT NULL,
+   `id_form_task` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_form_task`),
+   FOREIGN KEY (`id_form_task`) REFERENCES `db_rainbow_plantmaintenancemanagement`.`maintenance_forms_tasks`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_name_foreignkey (`name`, `id_form_task`)  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_forms_daily_events` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `owner` VARCHAR(38) NOT NULL,
+   `date` DATE NOT NULL,
+
+   PRIMARY KEY (`id`),
+   UNIQUE idx_owner_date (`owner`, `date`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_plantmaintenancemanagement`.`maintenance_form_daily_event_lines` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `hour` VARCHAR(5) NOT NULL,
+   `duration` VARCHAR(5) NOT NULL,
+   `description` TEXT NOT NULL,
+   `id_form_daily_event` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_form_daily_event`),
+   FOREIGN KEY (`id_form_daily_event`) REFERENCES `db_rainbow_plantmaintenancemanagement`.`maintenance_forms_daily_events`(`id`) ON DELETE CASCADE   
+) ENGINE=innodb;

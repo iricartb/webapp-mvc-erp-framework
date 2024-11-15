@@ -1,0 +1,36 @@
+.calendar_contracting_procedure {
+   width: 880px;   
+}
+
+.calendar_contracting_procedure #cal_1.calendar .calendar-heading {
+   height: 0px !important; 
+}
+
+.calendar_contracting_procedure #cal_1.full .calendar-heading span {
+   font-size: 1.4em;   
+}
+
+ table#cal_1.calendar .previous, table#cal_1.calendar .next {
+   font-size: 1.2em !important;   
+}
+
+.calendar_contracting_procedure th {
+   font-weight: normal !important;
+}
+
+.calendar_contracting_procedure table#cal_1.calendar .day-with-date {
+   font-size: 1.2em;
+}
+  
+.calendar_contracting_procedure table#cal_1.calendar .event-details {
+   font-size: 1em !important;  
+}  
+                                                               
+.calendar_contracting_procedure table#cal_1.calendar .day-with-date, .calendar_contracting_procedure table#cal_1.calendar .open-details {
+   height: 4em;
+}
+
+.calendar_contracting_procedure .open-details {
+   width: 400px !important;
+   height: 190px !important;
+}

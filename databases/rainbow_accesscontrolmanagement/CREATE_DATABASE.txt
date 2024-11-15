@@ -1,0 +1,122 @@
+DROP TABLE IF EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_check_in_manual`;
+DROP TABLE IF EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_check_in_machine`;
+DROP TABLE IF EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_chronograms`;
+DROP TABLE IF EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_timetables`;
+DROP TABLE IF EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_incidences`;
+DROP TABLE IF EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_devices_groups_devices`;
+DROP TABLE IF EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_groups_devices`;
+DROP TABLE IF EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_devices`;
+DROP TABLE IF EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_controllers`;
+DROP TABLE IF EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_module_parameters`;
+
+CREATE DATABASE IF NOT EXISTS `db_rainbow_accesscontrolmanagement` CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_module_parameters` (
+   `show_checkin_manual` TINYINT(1) NOT NULL DEFAULT 0,
+   `block_synchronization` TINYINT(1) NOT NULL DEFAULT 0 
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_controllers` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(30) NOT NULL UNIQUE KEY,
+   `ipv4` VARCHAR(15) NOT NULL UNIQUE KEY,
+   `mac` VARCHAR(17) NOT NULL UNIQUE KEY,
+   `status` VARCHAR(15) NOT NULL,
+
+   PRIMARY KEY (`id`)  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_devices` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(30) NOT NULL UNIQUE KEY,
+   `ipv4` VARCHAR(15) NOT NULL UNIQUE KEY,
+   `type` INT,
+   `disabled` TINYINT(1) NOT NULL DEFAULT 0, 
+   `sync_date` DATETIME,
+   `status` VARCHAR(15) NOT NULL,
+
+   PRIMARY KEY (`id`)  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_groups_devices` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(30) NOT NULL UNIQUE KEY, 
+
+   PRIMARY KEY (`id`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_devices_groups_devices` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `id_device` INT NOT NULL,
+   `id_group_device` INT NOT NULL,
+ 
+   PRIMARY KEY (`id`),
+   INDEX (`id_device`, `id_group_device`),
+   FOREIGN KEY (`id_device`) REFERENCES `db_rainbow_accesscontrolmanagement`.`accesscontrol_devices`(`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`id_group_device`) REFERENCES `db_rainbow_accesscontrolmanagement`.`accesscontrol_groups_devices`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_device_group_device (`id_device`, `id_group_device`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_incidences` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `code` VARCHAR(20) NOT NULL UNIQUE KEY,
+   `description` VARCHAR(40) NOT NULL,
+    
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_timetables` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(20) NOT NULL UNIQUE KEY,
+   `abbreviation` VARCHAR(6) NOT NULL,
+   `type` VARCHAR(20) NOT NULL,
+   `hour1_t1` VARCHAR(5) NOT NULL,
+   `hour2_t1` VARCHAR(5) NOT NULL,
+   `hour1_t2` VARCHAR(5),
+   `hour2_t2` VARCHAR(5),
+   `tolerance` INT NOT NULL DEFAULT 0,
+     
+   PRIMARY KEY (`id`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_chronograms` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `type` VARCHAR(30) NOT NULL,
+   `employee_identification` VARCHAR(12),
+   `employee_tolerance` INT NOT NULL DEFAULT 0,
+   `employee_process_delay` INT NOT NULL DEFAULT 1,
+   `timetable_name` VARCHAR(20),
+   `timetable_abbreviation` VARCHAR(6),
+   `timetable_type` VARCHAR(20),
+   `timetable_hour1_t1` VARCHAR(5),
+   `timetable_hour2_t1` VARCHAR(5),
+   `timetable_hour1_t2` VARCHAR(5),
+   `timetable_hour2_t2` VARCHAR(5),
+   `timetable_tolerance` INT NOT NULL DEFAULT 0,
+   `date` DATE NOT NULL,
+   
+   PRIMARY KEY (`id`) 
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_check_in_machine` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `date` DATETIME NOT NULL,
+   `incidence_code` VARCHAR(20),
+   `employee_type_access_code` INT NOT NULL DEFAULT 0,
+   `employee_identification` VARCHAR(12) NOT NULL,
+   `id_device` INT,
+   `type` INT,
+
+   PRIMARY KEY (`id`),
+   UNIQUE idx_date_employee_identification (`date`, `employee_identification`) 
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_accesscontrolmanagement`.`accesscontrol_check_in_manual` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `date` DATETIME NOT NULL,
+   `employee_identification` VARCHAR(12) NOT NULL,
+   `type` INT NOT NULL DEFAULT 0,
+
+   PRIMARY KEY (`id`),
+   UNIQUE idx_date_employee_identification (`date`, `employee_identification`) 
+) ENGINE=innodb;

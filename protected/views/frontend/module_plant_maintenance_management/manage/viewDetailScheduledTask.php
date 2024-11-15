@@ -1,0 +1,55 @@
+<?php $this->widget('zii.widgets.CDetailView', array(
+   'data'=>$oModelForm,
+   'attributes'=>array(
+      array(
+         'name'=>'owner',
+      ),
+      array(
+         'name'=>'name',
+      ),
+      array(
+         'name'=>'type_task',
+         'value'=>Yii::t('frontend_' . strtolower(FApplication::MODULE_PLANT_MAINTENANCE_MANAGEMENT), 'MODEL_MAINTENANCESCHEDULEDTASKS_FIELD_TYPETASK_VALUE_' . $oModelForm->type_task),
+      ),
+      array(
+         'name'=>'task',
+      ),
+      array(
+         'name'=>'execution_date',
+         'value'=>FDate::getTimeZoneFormattedDate($oModelForm->execution_date, true),
+      ),
+      array(
+         'name'=>'alarm',
+         'value'=>($oModelForm->alarm) ? Yii::t('system', 'SYS_YES') : Yii::t('system', 'SYS_NO'),
+      ),
+      array(
+         'name'=>'priority',
+      ),
+      array(
+         'name'=>'sDepartments',
+         'value'=>MaintenanceScheduledTasks::getDepartmentsDescription($oModelForm->id),
+      ),
+      array(
+         'name'=>'sPeriodicity',
+         'value'=>MaintenanceScheduledTasks::getPeriodicityDescription($oModelForm->id),
+      ),
+      array(
+         'name'=>'id_zone',
+         'value'=>Zones::getZoneName($oModelForm->id_zone),
+      ),
+      array(
+         'name'=>'id_region',
+         'value'=>Regions::getRegionName($oModelForm->id_region),
+      ),
+      array(
+         'name'=>'id_equipment',
+         'value'=>Equipments::getEquipmentName($oModelForm->id_equipment),
+      ),
+      array(
+         'name'=>'sComponents',
+         'value'=>MaintenanceScheduledTasks::getComponentsDescription($oModelForm->id),
+      ),
+   ),
+   'nullDisplay'=>FString::STRING_EMPTY,
+));
+?>

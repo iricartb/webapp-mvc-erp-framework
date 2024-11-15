@@ -1,0 +1,373 @@
+/* Animation border */
+.animation_border_darkgray {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_darkgray:hover {
+   border-color: #555555;
+}
+
+.animation_border_gray {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_gray:hover {
+   border-color: #888888;
+}
+
+.animation_border_lightgray {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_lightgray:hover {
+   border-color: #dddddd;
+}
+
+.animation_border_darkred {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_darkred:hover { 
+   border-color: #552222;
+}
+
+.animation_border_red {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_red:hover { 
+   border-color: #993d3d;
+}
+
+.animation_border_lightred {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_lightred:hover { 
+   border-color: #ffcccc;
+}
+
+.animation_border_darkgreen {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_darkgreen:hover { 
+   border-color: #225522;
+}
+
+.animation_border_green {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_green:hover { 
+   border-color: #3d993d;
+}
+
+.animation_border_lightgreen {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_lightgreen:hover { 
+   border-color: #ccffcc;
+}
+
+.animation_border_darkblue {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_darkblue:hover { 
+   border-color: #222255;
+}
+
+.animation_border_blue {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_blue:hover { 
+   border-color: #3d3d99;
+}
+
+.animation_border_lightblue {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_lightblue:hover { 
+   border-color: #ccccff;
+}
+
+.animation_border_darkyellow {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_darkyellow:hover { 
+   border-color: #777722;
+}
+
+.animation_border_yellow {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_yellow:hover { 
+   border-color: #e7e740;
+}
+
+.animation_border_lightyellow {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_lightyellow:hover { 
+   border-color: #ffffcc;
+}
+
+.animation_border_darkpurple {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_darkpurple:hover { 
+   border-color: #772277;
+}
+
+.animation_border_purple {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_purple:hover { 
+   border-color: #e740e7;
+}
+
+.animation_border_lightpurple {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_lightpurple:hover { 
+   border-color: #ffccff;
+}
+
+.animation_border_darkorange {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_darkorange:hover { 
+   border-color: #c85e00;
+}
+
+.animation_border_orange {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_orange:hover { 
+   border-color: #ff7800;
+}
+
+.animation_border_lightorange {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_lightorange:hover { 
+   border-color: #ffeccc;
+}
+
+.animation_border_darkbrown {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_darkbrown:hover { 
+   border-color: #3b2100;
+}
+
+.animation_border_brown {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_brown:hover { 
+   border-color: #744000;
+}
+
+.animation_border_lightbrown {
+   -webkit-transition: border-color .218s;
+   -moz-transition: border .218s;
+   -o-transition: border-color .218s;
+   transition: border-color .218s;   
+}
+
+.animation_border_lightbrown:hover { 
+   border-color: #ffe4c0;
+}
+/* End animation border */
+
+
+/* Animation background */
+.animation_background_darkgray:hover {
+   background-color: #555555;
+}
+
+.animation_background_gray:hover {
+   background-color: #888888;
+}
+
+.animation_background_lightgray:hover {
+   background-color: #dddddd;
+}
+
+.animation_background_darkred:hover { 
+   background-color: #552222;
+}
+
+.animation_background_red:hover { 
+   background-color: #993d3d;
+}
+
+.animation_background_lightred:hover { 
+   background-color: #ffcccc;
+}
+
+.animation_background_darkgreen:hover { 
+   background-color: #225522;
+}
+
+.animation_background_green:hover { 
+   background-color: #3d993d;
+}
+
+.animation_background_lightgreen:hover { 
+   background-color: #ccffcc;
+}
+
+.animation_background_darkblue:hover { 
+   background-color: #222255;
+}
+
+.animation_background_blue:hover { 
+   background-color: #3d3d99;
+}
+
+.animation_background_lightblue:hover { 
+   background-color: #ccccff;
+}
+
+.animation_background_darkyellow:hover { 
+   background-color: #777722;
+}
+
+.animation_background_yellow:hover { 
+   background-color: #e7e740;
+}
+
+.animation_background_lightyellow:hover { 
+   background-color: #ffffb0;
+}
+
+.animation_background_darkpurple:hover { 
+   background-color: #772277;
+}
+
+.animation_background_purple:hover { 
+   background-color: #e740e7;
+}
+
+.animation_background_lightpurple:hover { 
+   background-color: #ffccff;
+}
+
+.animation_background_darkorange:hover { 
+   background-color: #c85e00;
+}
+
+.animation_background_orange:hover { 
+   background-color: #ff7800;
+}
+
+.animation_background_lightorange:hover { 
+   background-color: #ffeccc;
+}
+
+.animation_background_darkbrown:hover { 
+   background-color: #3b2100;
+}
+
+.animation_background_brown:hover { 
+   background-color: #744000;
+}
+
+.animation_background_lightbrown:hover { 
+   background-color: #ffe4c0;
+}
+/* End animation border */
+
+
+/* Animation shadow */
+.animation_shadow:hover {
+   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); 
+   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+/* End animation shadow */

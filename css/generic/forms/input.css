@@ -1,0 +1,60 @@
+input {
+   font-family: Arial;
+   font-size: 12px;
+}
+
+.input_button_lightgray_no_radius_no_border {
+   height: 22px;
+   background-color: #d4d0c8;
+   padding-top: 3px;
+   padding-bottom: 3px;
+   padding-right: 10px;
+   padding-left: 10px;
+   border: none;
+   cursor: pointer;      
+}
+
+.input_button_lightgray_no_radius_border {
+   height: 22px;
+   background-color: #d4d0c8;
+   padding-top: 3px;
+   padding-bottom: 3px;
+   padding-right: 10px;
+   padding-left: 10px;
+   border: 1px solid darkgray; 
+   cursor: pointer;
+}
+
+.input_button_lightgray_radius_no_border {
+   height: 22px;
+   background-color: #d4d0c8;
+   -webkit-border-radius: 3px;
+   -moz-border-radius: 3px;
+   -o-border-radius: 3px; 
+   border-radius: 3px;
+   padding-top: 3px;
+   padding-bottom: 3px;
+   padding-right: 10px;
+   padding-left: 10px;
+   border: none;
+   cursor: pointer;
+}
+
+.input_button_lightgray_radius_border {
+   height: 22px;
+   background-color: #d4d0c8; 
+   -webkit-border-radius: 3px;
+   -moz-border-radius: 3px;
+   -o-border-radius: 3px; 
+   border-radius: 3px;
+   padding-top: 3px;
+   padding-bottom: 3px;
+   padding-right: 10px;
+   padding-left: 10px;
+   border: solid 1px #dcdcdc;   
+   cursor: pointer;
+}
+
+.input_checkbox {
+   cursor: pointer;      
+}

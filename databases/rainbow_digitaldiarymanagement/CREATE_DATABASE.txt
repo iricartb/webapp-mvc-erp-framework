@@ -1,0 +1,115 @@
+DROP TABLE IF EXISTS `db_rainbow_digitaldiarymanagement`.`digitaldiary_daily_notifications`;
+DROP TABLE IF EXISTS `db_rainbow_digitaldiarymanagement`.`digitaldiary_sections_notifications`;
+DROP TABLE IF EXISTS `db_rainbow_digitaldiarymanagement`.`digitaldiary_sections`;
+DROP TABLE IF EXISTS `db_rainbow_digitaldiarymanagement`.`digitaldiary_form_turn_event_sections_notifications`;
+DROP TABLE IF EXISTS `db_rainbow_digitaldiarymanagement`.`digitaldiary_form_turn_event_sections`;
+DROP TABLE IF EXISTS `db_rainbow_digitaldiarymanagement`.`digitaldiary_form_turn_event_lines`;
+DROP TABLE IF EXISTS `db_rainbow_digitaldiarymanagement`.`digitaldiary_form_turn_event_employees`;
+DROP TABLE IF EXISTS `db_rainbow_digitaldiarymanagement`.`digitaldiary_forms_turn_events`;
+DROP TABLE IF EXISTS `db_rainbow_digitaldiarymanagement`.`digitaldiary_module_parameters`;
+
+CREATE DATABASE IF NOT EXISTS `db_rainbow_digitaldiarymanagement` CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_digitaldiarymanagement`.`digitaldiary_module_parameters` (    
+   `notify_smtp_mail` VARCHAR(30) NOT NULL,
+   `notify_smtp_host` VARCHAR(30) NOT NULL,
+   `notify_smtp_port` SMALLINT UNSIGNED NOT NULL,
+   `notify_smtp_user` VARCHAR(30) NOT NULL,
+   `notify_smtp_passwd` VARCHAR(20) NOT NULL,
+   `notify_smtp_ssl` TINYINT(1) NOT NULL DEFAULT 0
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_digitaldiarymanagement`.`digitaldiary_sections` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(20) NOT NULL UNIQUE KEY,
+   `description` VARCHAR(40) NOT NULL,
+    
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_digitaldiarymanagement`.`digitaldiary_sections_notifications` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `mail` VARCHAR(60) NOT NULL,
+   `only_recv_urgent_events` TINYINT(1) NOT NULL DEFAULT 0, 
+   `id_section` INT NOT NULL, 
+   
+   PRIMARY KEY (`id`),
+   INDEX (`id_section`),
+   FOREIGN KEY (`id_section`) REFERENCES `db_rainbow_digitaldiarymanagement`.`digitaldiary_sections`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_section_mail (`id_section`, `mail`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_digitaldiarymanagement`.`digitaldiary_forms_turn_events` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `owner` VARCHAR(38) NOT NULL,
+   `date` DATE NOT NULL,
+   `turn` VARCHAR(11) NOT NULL,
+   `status` VARCHAR(32) NOT NULL,
+   `start_date` DATETIME NOT NULL, 
+   `accept` TINYINT(1) NOT NULL DEFAULT 0,
+   `accept_comments` VARCHAR(512),
+   `comments` VARCHAR(512),
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_digitaldiarymanagement`.`digitaldiary_form_turn_event_lines` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `hour` VARCHAR(5) NOT NULL,
+   `section_name` VARCHAR(20) NOT NULL,
+   `id_zone` INT NOT NULL,
+   `zone` VARCHAR(40) NOT NULL, 
+   `id_region` INT NOT NULL,
+   `region` VARCHAR(40) NOT NULL,
+   `id_equipment` INT NOT NULL,
+   `equipment` VARCHAR(40) NOT NULL,
+   `description` TEXT NOT NULL,
+   `urgent` TINYINT(1) NOT NULL DEFAULT 0, 
+   `send` TINYINT(1) NOT NULL DEFAULT 0,
+   `id_form_turn_event` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_form_turn_event`),
+   FOREIGN KEY (`id_form_turn_event`) REFERENCES `db_rainbow_digitaldiarymanagement`.`digitaldiary_forms_turn_events`(`id`) ON DELETE CASCADE   
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_digitaldiarymanagement`.`digitaldiary_form_turn_event_employees` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(38) NOT NULL,
+   `id_form_turn_event` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_form_turn_event`),
+   FOREIGN KEY (`id_form_turn_event`) REFERENCES `db_rainbow_digitaldiarymanagement`.`digitaldiary_forms_turn_events`(`id`) ON DELETE CASCADE  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_digitaldiarymanagement`.`digitaldiary_form_turn_event_sections` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(20) NOT NULL,
+   `description` VARCHAR(40) NOT NULL,
+   `id_form_turn_event` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`name`, `id_form_turn_event`),
+   FOREIGN KEY (`id_form_turn_event`) REFERENCES `db_rainbow_digitaldiarymanagement`.`digitaldiary_forms_turn_events`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_name_foreignkey (`name`, `id_form_turn_event`)      
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_digitaldiarymanagement`.`digitaldiary_form_turn_event_sections_notifications` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `mail` VARCHAR(60) NOT NULL,
+   `only_recv_urgent_events` TINYINT(1) NOT NULL DEFAULT 0,  
+   `id_form_turn_event_section` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_form_turn_event_section`),
+   FOREIGN KEY (`id_form_turn_event_section`) REFERENCES `db_rainbow_digitaldiarymanagement`.`digitaldiary_form_turn_event_sections`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_mail_foreignkey (`mail`, `id_form_turn_event_section`)      
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_digitaldiarymanagement`.`digitaldiary_daily_notifications` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `mail` VARCHAR(60) NOT NULL,
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;

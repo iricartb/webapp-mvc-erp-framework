@@ -1,0 +1,59 @@
+--- INSTALACION ------------------------------------------------------------------
+
+1. Copiar función FWidget.class.php
+
+2. Importar función en el controlador principal (Controller.php)
+
+   - <?php require_once('protected/functions/FWidget.class.php'); ?>
+
+3. Copiar la carpeta widgets de la raiz del proyecto con el contenido de css, javascript, images
+
+4. Importar en el layout css y javascript
+   
+   - <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/widgets/Toolbox/css/toolbox.css" />
+   - <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/widgets/Toolbox/javascript/toolbox.js"></script>
+
+5. Copiar los idiomas widgets.php
+
+7. Copiar la carpeta widgets de los controladores
+
+8. Copiar la carpeta widgets de los modelos 
+
+9. Modificar el fichero de configuración protected/config/main.php para que la aplicación pueda interacturar con los nuevos modelos
+
+   // autoloading model and component classes
+   - añadir la linea: 'application.models.widgets.Toolbox.DataExporter.*',
+
+
+
+--- DEPENDENCIAS ------------------------------------------------------------------
+
+1. Mpdf
+
+   - Bajar el componente (protected/components) e introducir la linea siguiente en el controlador principal (Controller.php): 
+        
+     - <?php require_once('protected/components/Mpdf/mpdf.php'); ?>
+
+2. EExcelView
+
+   - Bajar la extensión (protected/extensions) e introducir la linea siguiente en el controlador principal (Controller.php): 
+        
+     - <?php Yii::import('application.extensions.EExcelView.EExcelView'); ?>
+
+3. Función FString.class.php
+
+4. Función FFile.class.php 
+
+5. Función FUrl.class.php
+
+
+
+--- USO --------------------------------------------------------------------------
+
+1. Los modelos deben extender de CExportedActiveRecord
+
+2. Deben cumplir la interfaz (ver modelo CExportedActiveRecord.php)
+
+3a. llamar a la función FWidget::showToolboxExporterData(...);
+
+3b. llamar a la función FWidget::showToolboxExporterCustomData(...);

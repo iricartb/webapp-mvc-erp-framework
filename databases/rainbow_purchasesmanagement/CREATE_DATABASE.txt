@@ -1,0 +1,276 @@
+DROP TABLE IF EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_purchase_orders_invoices`;
+DROP TABLE IF EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_purchase_orders_articles`;
+DROP TABLE IF EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_purchase_orders`;
+DROP TABLE IF EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers_notifications`;
+DROP TABLE IF EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers_articles`;
+DROP TABLE IF EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers_records`;
+DROP TABLE IF EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers_lines_objectives`;
+DROP TABLE IF EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers_lines`;
+DROP TABLE IF EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers_documents`;
+DROP TABLE IF EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers`;
+DROP TABLE IF EXISTS `db_rainbow_purchasesmanagement`.`purchases_contracting_procedures`;
+DROP TABLE IF EXISTS `db_rainbow_purchasesmanagement`.`purchases_documents_contracting_procedures`;
+DROP TABLE IF EXISTS `db_rainbow_purchasesmanagement`.`purchases_financial_costs_accounting_accounts`;
+DROP TABLE IF EXISTS `db_rainbow_purchasesmanagement`.`purchases_financial_costs_lines`;
+DROP TABLE IF EXISTS `db_rainbow_purchasesmanagement`.`purchases_financial_costs`;
+DROP TABLE IF EXISTS `db_rainbow_purchasesmanagement`.`purchases_module_parameters`;
+
+CREATE DATABASE IF NOT EXISTS `db_rainbow_purchasesmanagement` CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_purchasesmanagement`.`purchases_module_parameters` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `database_providers_synchronization` TINYINT(1) NOT NULL DEFAULT 0,   
+   `database_providers_connection_string` VARCHAR(255) NOT NULL,
+   `database_providers_user` VARCHAR(12) NOT NULL,
+   `database_providers_passwd`VARCHAR(32),
+   `database_providers_table` VARCHAR(40) NOT NULL,
+   `database_provider_where_condition` VARCHAR(255),
+   `database_providers_table_column_nif` VARCHAR(40) NOT NULL,
+   `database_providers_table_columns_match` TEXT NOT NULL,
+   `range_price_without_authorization` DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+   `range_price_provider_year` DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+   `range_price_three_offers` DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+   `range_price_tendering` DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+   `folder_contracting_procedure` VARCHAR(255) NOT NULL,
+   `notify_smtp_mail` VARCHAR(30) NOT NULL,
+   `notify_smtp_host` VARCHAR(30) NOT NULL,
+   `notify_smtp_port` SMALLINT UNSIGNED NOT NULL,
+   `notify_smtp_user` VARCHAR(30) NOT NULL,
+   `notify_smtp_passwd` VARCHAR(20) NOT NULL,
+   `notify_smtp_ssl` TINYINT(1) NOT NULL DEFAULT 0,
+   `allow_update_purchases_forms_purchase_orders` TINYINT(1) NOT NULL DEFAULT 0,
+
+   PRIMARY KEY (`id`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_purchasesmanagement`.`purchases_financial_costs` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `year` INT NOT NULL UNIQUE KEY,
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_purchasesmanagement`.`purchases_financial_costs_lines` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `group` VARCHAR(64) NOT NULL,
+   `concept` VARCHAR(64) NOT NULL,
+   `department` VARCHAR(40) NOT NULL,
+   `max_price` DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+   `id_financial_cost` INT NOT NULL, 
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_financial_cost`),
+   FOREIGN KEY (`id_financial_cost`) REFERENCES `db_rainbow_purchasesmanagement`.`purchases_financial_costs`(`id`) ON DELETE CASCADE     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_purchasesmanagement`.`purchases_financial_costs_accounting_accounts` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `account` VARCHAR(32) NOT NULL,
+   `description` VARCHAR(64) NOT NULL,
+   `id_financial_cost_line` INT NOT NULL, 
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_financial_cost_line`),
+   FOREIGN KEY (`id_financial_cost_line`) REFERENCES `db_rainbow_purchasesmanagement`.`purchases_financial_costs_lines`(`id`) ON DELETE CASCADE     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_purchasesmanagement`.`purchases_contracting_procedures` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(128) NOT NULL UNIQUE KEY,
+
+   PRIMARY KEY (`id`)   
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_purchasesmanagement`.`purchases_documents_contracting_procedures` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `type` VARCHAR(12) NOT NULL UNIQUE KEY,
+   `description` VARCHAR(64) NOT NULL,
+   `folder` VARCHAR(128) NOT NULL,
+
+   PRIMARY KEY (`id`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `owner` VARCHAR(38) NOT NULL,
+   `user_accept_discard` VARCHAR(38),
+   `department` VARCHAR(40),
+   `description` VARCHAR(1024) NOT NULL,
+   `status` VARCHAR(32) NOT NULL,
+   `discard_reason` VARCHAR(128),
+   `start_date` DATETIME NOT NULL,
+   `accept_date` DATETIME,
+   `id_user` INT NOT NULL,
+   `id_financial_cost_line` INT,
+   `contracting_procedure` TINYINT(1) NOT NULL DEFAULT 0,
+   `contracting_procedure_type` VARCHAR(12),
+   `contracting_procedure_service` VARCHAR(128),
+   `contracting_procedure_expedient` VARCHAR(20),
+   `contracting_procedure_expedient_external` VARCHAR(20),
+   `contracting_procedure_start_date` DATE,
+   `contracting_procedure_end_date` DATE,
+   `contracting_procedure_comments` VARCHAR(1024),
+   `id_contracting_procedure` INT,
+   `data_completed` TINYINT(1) NOT NULL DEFAULT 0,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_financial_cost_line`, `id_contracting_procedure`),
+   FOREIGN KEY (`id_financial_cost_line`) REFERENCES `db_rainbow_purchasesmanagement`.`purchases_financial_costs_lines`(`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`id_contracting_procedure`) REFERENCES `db_rainbow_purchasesmanagement`.`purchases_contracting_procedures`(`id`) ON DELETE CASCADE      
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers_lines` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `price` DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+   `offer` VARCHAR(255),
+   `notify` TINYINT(1) NOT NULL DEFAULT 0,
+   `selected` TINYINT(1) NOT NULL DEFAULT 0,
+   `start_date` DATETIME NOT NULL,
+   `notify_date` DATETIME,
+   `id_provider` INT NOT NULL,
+   `id_form_request_offer` INT NOT NULL, 
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_form_request_offer`, `id_provider`),
+   FOREIGN KEY (`id_provider`) REFERENCES `db_rainbow_common`.`providers`(`id`) ON DELETE CASCADE,   
+   FOREIGN KEY (`id_form_request_offer`) REFERENCES `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers`(`id`) ON DELETE CASCADE
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers_lines_objectives` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `type` VARCHAR(12),
+   `description` VARCHAR(255),
+   `quantity` DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+   `estimated_date` DATE,
+   `estimated_price` DECIMAL(12,3),
+   `accomplished_date` DATE,
+   `accomplished_price` DECIMAL(12,3),
+   `accomplished` TINYINT(1) NOT NULL DEFAULT 0,
+   `id_user` INT NOT NULL,
+   `id_financial_cost_line` INT,
+   `id_form_request_offer_line` INT NOT NULL, 
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_form_request_offer_line`, `id_financial_cost_line`), 
+   FOREIGN KEY (`id_financial_cost_line`) REFERENCES `db_rainbow_purchasesmanagement`.`purchases_financial_costs_lines`(`id`) ON DELETE CASCADE, 
+   FOREIGN KEY (`id_form_request_offer_line`) REFERENCES `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers_lines`(`id`) ON DELETE CASCADE
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers_documents` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `type` VARCHAR(12) NOT NULL,
+   `type_description` VARCHAR(64) NOT NULL,
+   `name` VARCHAR(128) NOT NULL,
+   `folder` VARCHAR(128) NOT NULL,
+   `document` VARCHAR(255),
+   `version` INT,
+   `date` DATETIME,
+   `id_user` INT NOT NULL,
+   `id_form_request_offer_document` INT,
+   `id_form_request_offer` INT NOT NULL, 
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_form_request_offer`), 
+   FOREIGN KEY (`id_form_request_offer`) REFERENCES `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers`(`id`) ON DELETE CASCADE
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers_articles` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `quantity` DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+   `description` VARCHAR(128) NOT NULL,
+   `requirements_date` DATE,
+   `service` TINYINT(1) NOT NULL DEFAULT 0,
+   `id_form_request_offer` INT NOT NULL, 
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_form_request_offer`), 
+   FOREIGN KEY (`id_form_request_offer`) REFERENCES `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers`(`id`) ON DELETE CASCADE
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers_records` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `date` DATETIME NOT NULL,
+   `provider` VARCHAR(60) NOT NULL,
+   `id_form_request_offer` INT NOT NULL, 
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_form_request_offer`), 
+   FOREIGN KEY (`id_form_request_offer`) REFERENCES `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers`(`id`) ON DELETE CASCADE
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_purchase_orders` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `owner` VARCHAR(38) NOT NULL,
+   `user_accept` VARCHAR(38) NOT NULL,
+   `department` VARCHAR(40),
+   `description` VARCHAR(1024) NOT NULL,
+   `price` DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+   `offer` VARCHAR(255) NOT NULL,
+   `order` VARCHAR(255),
+   `delivery` VARCHAR(255),
+   `send_method` VARCHAR(40), 
+   `payment_method` VARCHAR(40),
+   `comments` VARCHAR(256),
+   `status` VARCHAR(32) NOT NULL,
+   `accept_date` DATETIME NOT NULL,
+   `notify` TINYINT(1) NOT NULL DEFAULT 0,
+   `notify_date` DATETIME,
+   `changes_pending` TINYINT(0) NOT NULL DEFAULT 0,
+   `changes_price` DECIMAL(12, 2),
+   `changes_reason` VARCHAR(256), 
+   `id_provider` INT NOT NULL,
+   `id_user` INT NOT NULL,
+   `id_financial_cost_line` INT NOT NULL,
+   `id_form_request_offer` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_financial_cost_line`, `id_provider`, `id_form_request_offer`),
+   FOREIGN KEY (`id_provider`) REFERENCES `db_rainbow_common`.`providers`(`id`) ON DELETE CASCADE,   
+   FOREIGN KEY (`id_financial_cost_line`) REFERENCES `db_rainbow_purchasesmanagement`.`purchases_financial_costs_lines`(`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`id_form_request_offer`) REFERENCES `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers`(`id`) ON DELETE CASCADE
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_purchase_orders_articles` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `quantity` DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+   `description` VARCHAR(128) NOT NULL,
+   `price` DECIMAL(12,3) NOT NULL DEFAULT 0.000,
+   `requirements_date` DATE,
+   `service` TINYINT(1) NOT NULL DEFAULT 0,
+   `custom` TINYINT(1) NOT NULL DEFAULT 0,
+   `comments` VARCHAR(256),
+   `id_form_purchase_order` INT NOT NULL, 
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_form_purchase_order`), 
+   FOREIGN KEY (`id_form_purchase_order`) REFERENCES `db_rainbow_purchasesmanagement`.`purchases_forms_purchase_orders`(`id`) ON DELETE CASCADE
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_purchase_orders_invoices` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `number` VARCHAR(20),
+   `date` DATE,
+   `base` DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+   `iva` DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+   `price` DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+   `paid` TINYINT(1) NOT NULL DEFAULT 0,
+   `id_form_purchase_order` INT NOT NULL, 
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_form_purchase_order`), 
+   FOREIGN KEY (`id_form_purchase_order`) REFERENCES `db_rainbow_purchasesmanagement`.`purchases_forms_purchase_orders`(`id`) ON DELETE CASCADE
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers_notifications` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `start_date` DATE NOT NULL,
+   `end_date` DATE NOT NULL,
+   `message` VARCHAR(128) NOT NULL,
+   `public` TINYINT(1) NOT NULL DEFAULT 0,   
+   `id_user` INT NOT NULL,
+   `id_form_request_offer` INT NOT NULL, 
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_form_request_offer`), 
+   FOREIGN KEY (`id_form_request_offer`) REFERENCES `db_rainbow_purchasesmanagement`.`purchases_forms_request_offers`(`id`) ON DELETE CASCADE
+) ENGINE=innodb;

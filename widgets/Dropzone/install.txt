@@ -1,0 +1,51 @@
+--- INSTALACION ------------------------------------------------------------------
+
+1. Copiar función FWidget.class.php
+
+2. Importar función en el controlador principal (Controller.php)
+
+   - <?php require_once('protected/functions/FWidget.class.php'); ?>
+
+3. Copiar la carpeta widgets de la raiz del proyecto con el contenido de css, javascript, images
+
+4. Importar en el layout css y javascript
+   
+   - <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/widgets/Dropzone/css/dropzone.css" />
+   - <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/widgets/Dropzone/javascript/dropzone.js"></script>
+
+5. Copiar los idiomas widgets.php
+
+7. Copiar la carpeta widgets de los controladores
+
+8. Copiar la carpeta widgets de los modelos 
+
+9. Modificar el fichero de configuración protected/config/main.php para que la aplicación pueda interacturar con los nuevos modelos
+
+   // autoloading model and component classes
+   - añadir la linea: 'application.models.widgets.Dropzone.*',
+
+
+
+--- DEPENDENCIAS ------------------------------------------------------------------
+
+1. Función FAjax.class.php
+
+2. Función FFile.class.php 
+   
+   - Funciones resizeImageFile y saveImageFile dependen del componente PHPImageMagician (protected/components)
+
+      - Bajar componente (protected/components) e introducir la linea siguiente en el controlador principal (Controller.php): 
+        
+        - <?php Yii::import('application.components.PHPImageMagician.PHPImageMagician', true); ?>
+
+3. Función FString.class.php
+
+
+
+--- USO --------------------------------------------------------------------------
+
+1. Los modelos deben extender de CDropzoneActiveRecord
+
+2. Deben cumplir la interfaz (ver modelo CDropzoneActiveRecord.php)
+
+3. llamar a la función FWidget::showDropzone(...);

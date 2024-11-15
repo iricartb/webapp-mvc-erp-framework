@@ -1,0 +1,133 @@
+DROP TABLE IF EXISTS `db_rainbow_warehousemanagement`.`warehouse_form_output_articles`;
+DROP TABLE IF EXISTS `db_rainbow_warehousemanagement`.`warehouse_forms_outputs`;
+DROP TABLE IF EXISTS `db_rainbow_warehousemanagement`.`warehouse_form_input_articles`;
+DROP TABLE IF EXISTS `db_rainbow_warehousemanagement`.`warehouse_forms_inputs`;
+DROP TABLE IF EXISTS `db_rainbow_warehousemanagement`.`warehouse_articles_providers`;
+DROP TABLE IF EXISTS `db_rainbow_warehousemanagement`.`warehouse_articles_locations_subcategories`;
+DROP TABLE IF EXISTS `db_rainbow_warehousemanagement`.`warehouse_articles_locations_categories`;
+DROP TABLE IF EXISTS `db_rainbow_warehousemanagement`.`warehouse_articles_subcategories`;
+DROP TABLE IF EXISTS `db_rainbow_warehousemanagement`.`warehouse_articles_categories`;
+
+CREATE DATABASE IF NOT EXISTS `db_rainbow_warehousemanagement` CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_warehousemanagement`.`warehouse_articles_categories` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(20) NOT NULL UNIQUE KEY,
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_warehousemanagement`.`warehouse_articles_subcategories` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(20) NOT NULL,
+   `description` VARCHAR(128),
+   `id_category` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_category`),
+   FOREIGN KEY (`id_category`) REFERENCES `db_rainbow_warehousemanagement`.`warehouse_articles_categories`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_name_foreignkey (`name`, `id_category`)      
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_warehousemanagement`.`warehouse_articles_locations_categories` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(20) NOT NULL UNIQUE KEY,
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_warehousemanagement`.`warehouse_articles_locations_subcategories` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(20) NOT NULL,
+   `description` VARCHAR(128),
+   `id_location_category` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_location_category`),
+   FOREIGN KEY (`id_location_category`) REFERENCES `db_rainbow_warehousemanagement`.`warehouse_articles_locations_categories`(`id`) ON DELETE CASCADE    
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_warehousemanagement`.`warehouse_forms_inputs` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `type` VARCHAR(20) NOT NULL,
+   `code` VARCHAR(20),
+   `owner` VARCHAR(38) NOT NULL,
+   `comments` VARCHAR(128),
+   `date` DATETIME NOT NULL,
+   `id_user` INT NOT NULL,
+   `id_form_purchase_order` INT,
+   `id_provider` INT, 
+   `provider` VARCHAR(40),
+   `status` VARCHAR(32) NOT NULL,
+   `data_completed` TINYINT(1) NOT NULL DEFAULT 0,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_user`, `id_form_purchase_order`, `id_provider`, `date`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_warehousemanagement`.`warehouse_form_input_articles` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `id_category` INT,
+   `category` VARCHAR(20), 
+   `id_subcategory` INT,
+   `subcategory` VARCHAR(20),
+   `id_location_subcategory` INT,
+   `location_subcategory` VARCHAR(20),
+   `id_article` INT NOT NULL,
+   `article` VARCHAR(128) NOT NULL,
+   `article_code_barcode` VARCHAR(20),
+   `article_code_kks` VARCHAR(20),
+   `article_ipe` TINYINT(1) NOT NULL DEFAULT 0,
+   `article_description` VARCHAR(255),
+   `price_cost` DECIMAL(12,3) NOT NULL DEFAULT 0.000,
+   `quantity` INT NOT NULL DEFAULT 1,
+   `id_form_input` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_category`, `id_subcategory`, `id_location_subcategory`, `id_article`, `id_form_input`),
+   FOREIGN KEY (`id_form_input`) REFERENCES `db_rainbow_warehousemanagement`.`warehouse_forms_inputs`(`id`) ON DELETE CASCADE
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_warehousemanagement`.`warehouse_forms_outputs` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `type` VARCHAR(20) NOT NULL,
+   `code` VARCHAR(20),
+   `owner` VARCHAR(38) NOT NULL,
+   `comments` VARCHAR(128),
+   `date` DATETIME NOT NULL,
+   `id_maintenance_form_task` INT,
+   `id_user` INT NOT NULL,
+   `id_provider` INT, 
+   `provider` VARCHAR(40),
+   `id_employee` INT,
+   `employee` VARCHAR(38),
+   `employee_department` VARCHAR(40),
+   `id_form_working_part` VARCHAR(20),
+   `data_completed` TINYINT(1) NOT NULL DEFAULT 0,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_user`, `id_provider`, `date`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_warehousemanagement`.`warehouse_form_output_articles` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `id_category` INT,
+   `category` VARCHAR(20), 
+   `id_subcategory` INT,
+   `subcategory` VARCHAR(20),
+   `id_location_subcategory` INT,
+   `location_subcategory` VARCHAR(20),
+   `id_article` INT NOT NULL,
+   `article` VARCHAR(128) NOT NULL,
+   `article_code_barcode` VARCHAR(20),
+   `article_code_kks` VARCHAR(20),
+   `article_ipe` TINYINT(1) NOT NULL DEFAULT 0,
+   `article_description` VARCHAR(255),
+   `price_cost` DECIMAL(12,3) NOT NULL DEFAULT 0.000,
+   `quantity` INT NOT NULL DEFAULT 1,
+   `id_form_output` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_category`, `id_subcategory`, `id_location_subcategory`, `id_article`,  `id_form_output`),
+   FOREIGN KEY (`id_form_output`) REFERENCES `db_rainbow_warehousemanagement`.`warehouse_forms_outputs`(`id`) ON DELETE CASCADE
+) ENGINE=innodb;

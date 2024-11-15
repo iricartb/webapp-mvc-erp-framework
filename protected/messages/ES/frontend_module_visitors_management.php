@@ -1,0 +1,123 @@
+<?php 
+return array (
+    'MODEL_VISITORSCARDS_FIELD_CODE'=>'Código de acceso de la tarjeta',
+
+    'MODEL_VISITORS_FIELD_FIRSTNAME'=>'Nombre',
+    'MODEL_VISITORS_FIELD_MIDDLENAME'=>'1er apellido',
+    'MODEL_VISITORS_FIELD_LASTNAME'=>'2do apellido',
+    'MODEL_VISITORS_FIELD_FULLNAME'=>'Nombre',
+    'MODEL_VISITORS_FIELD_IDENTIFICATION'=>'Doc. identificativo',
+    'MODEL_VISITORS_FIELD_BUSINESS'=>'Empresa',
+    'MODEL_VISITORS_FIELD_COMMENTS'=>'Observaciones',
+    
+    'MODEL_VISITORSPLATES_FIELD_PLATE'=>'Matrícula',
+    'MODEL_VISITORSPLATES_FIELD_EMPLOYEE'=>'Trabajador',
+    'MODEL_VISITORSPLATES_FIELD_EMPLOYEEIDENTIFICATION'=>'Doc. identificativo',
+    'MODEL_VISITORSPLATES_FIELD_COMMENTS'=>'Observaciones',
+    
+    'MODEL_VISITORSDESTINYCAR_FIELD_NAME_VALUE_PARKING'=>'Parking{1}',
+    'MODEL_VISITORSDESTINYCAR_FIELD_NAME_VALUE_PLANT'=>'Planta{1}',
+    
+    'MODEL_VISITORSVISITS_FIELD_CARDID'=>'ID Tarjeta',
+    'MODEL_VISITORSVISITS_FIELD_CARDCODE'=>'Código de acceso de la tarjeta',
+    'MODEL_VISITORSVISITS_FIELD_CARDCODE_ABBREVIATION'=>'C. T.',
+    'MODEL_VISITORSVISITS_FIELD_CARDINFORMATION'=>'Código externo de la tarjeta',
+    'MODEL_VISITORSVISITS_FIELD_EMPLOYEE'=>'Trabajador',
+    'MODEL_VISITORSVISITS_FIELD_EMPLOYEEIDENTIFICATION'=>'Doc. identificativo',
+    'MODEL_VISITORSVISITS_FIELD_EMPLOYEECOMMENTS'=>'Observaciones',
+    'MODEL_VISITORSVISITS_FIELD_VISITORFIRSTNAME'=>'Nombre',
+    'MODEL_VISITORSVISITS_FIELD_VISITORMIDDLENAME'=>'1er apellido',
+    'MODEL_VISITORSVISITS_FIELD_VISITORLASTNAME'=>'2do apellido',
+    'MODEL_VISITORSVISITS_FIELD_VISITORFULLNAME'=>'Visitante',
+    'MODEL_VISITORSVISITS_FIELD_VISITORIDENTIFICATION'=>'Doc. identificativo',
+    'MODEL_VISITORSVISITS_FIELD_VISITORBUSINESS'=>'Empresa',
+    'MODEL_VISITORSVISITS_FIELD_VISITORVEHICLE'=>'Vehículo',
+	 'MODEL_VISITORSVISITS_FIELD_VISITORVEHICLEPLATE'=>'Matrícula del vehículo',
+    'MODEL_VISITORSVISITS_FIELD_VISITORDESTINYVEHICLE'=>'Destino del vehículo',
+    'MODEL_VISITORSVISITS_FIELD_VISITORCOMMENTS'=>'Observaciones',
+    'MODEL_VISITORSVISITS_FIELD_VISITORSIGNATURE'=>'Firma',
+    'MODEL_VISITORSVISITS_FIELD_TYPE'=>'Tipo de visita',
+    'MODEL_VISITORSVISITS_FIELD_REASON'=>'Motivo de la visita',
+    'MODEL_VISITORSVISITS_FIELD_STARTDATE'=>'Día y hora de entrada',
+    'MODEL_VISITORSVISITS_FIELD_ENDDATE'=>'Día y hora de salida',
+    'MODEL_VISITORSVISITS_FIELD_IDGROUPDEVICE'=>'Permisos',
+    'MODEL_VISITORSVISITS_FIELD_IDBIOSTAR'=>'ID Biostar',
+    'MODEL_VISITORSVISITS_FIELD_TYPE_VALUE_VISIT'=>'Visita',
+    'MODEL_VISITORSVISITS_FIELD_TYPE_VALUE_SUBCONTRACT'=>'Personal Subcontratado',
+    'MODEL_VISITORSVISITS_FIELD_TYPE_VALUE_PROVIDER'=>'Proveedor',
+    'MODEL_VISITORSVISITS_FIELD_TYPE_VALUE_COMMERCIAL'=>'Comercial',
+    'MODEL_VISITORSVISITS_FIELD_TYPE_VALUE_OTHER'=>'Otro',
+    
+    'MODEL_VISITORSPEOPLE_FIELD_TYPE'=>'Tipo',
+    'MODEL_VISITORSPEOPLEFORM_FIELD_TYPE_VALUE_VISIT'=>'Visitas',
+    'MODEL_VISITORSPEOPLEFORM_FIELD_TYPE_VALUE_EMPLOYEE'=>'Trabajadores',
+    'MODEL_VISITORSPEOPLEFORM_FIELD_TYPE_VALUE_VISIT_EMPLOYEE'=>'Visitas y Trabajadores',
+    'MODEL_VISITORSPEOPLE_FIELD_DOCFORMAT'=>'Formato del documento',
+    
+    'REPORT_PEOPLE_NAME'=>'Personal',
+        
+    'PAGE_VIEWVISITORSCARDS_DESCRIPTION'=>'En este apartado podrá gestionar las tarjetas de los visitantes.',
+    'PAGE_VIEWVISITORSCARDS_FORM_NEW_DESCRIPTION'=>'Para introducir un nueva tarjeta debe completar el siguiente formulario.',
+    'PAGE_VIEWVISITORSCARDS_FORM_NEW_BTN_DESCRIPTION'=>'Nueva Tarjeta',
+    'PAGE_VIEWVISITORSCARDS_FORM_GRID_DESCRIPTION'=>'A continuación se muestra toda la información mediante celdas.',
+    
+    'PAGE_UPDATEVISITORCARD_FORM_UPDATE_DESCRIPTION'=>'En el siguiente formulario puede modificar los datos de la tarjeta seleccionada.',
+
+    'PAGE_VIEWVISITORS_DESCRIPTION'=>'En este apartado podrá gestionar los visitantes.',
+    'PAGE_VIEWVISITORS_FORM_NEW_DESCRIPTION'=>'Para introducir un nuevo visitante debe completar el siguiente formulario.',
+    'PAGE_VIEWVISITORS_FORM_NEW_BTN_DESCRIPTION'=>'Nuevo Visitante',    
+    'PAGE_VIEWVISITORS_FORM_GRID_DESCRIPTION'=>'A continuación se muestra toda la información mediante celdas.',
+    
+    'PAGE_UPDATEVISITOR_FORM_UPDATE_DESCRIPTION'=>'En el siguiente formulario puede modificar los datos del visitante seleccionado.',
+    
+    'PAGE_VIEWPLATES_DESCRIPTION'=>'En este apartado podrá gestionar las matrículas/vehículos.',
+    'PAGE_VIEWPLATES_FORM_NEW_DESCRIPTION'=>'Para introducir un nuevo vehículo debe completar el siguiente formulario.',
+    'PAGE_VIEWPLATES_FORM_NEW_BTN_DESCRIPTION'=>'Nuevo Vehículo',
+    'PAGE_VIEWPLATES_FORM_GRID_DESCRIPTION'=>'A continuación se muestra toda la información mediante celdas.',
+    
+    'PAGE_UPDATEPLATE_FORM_UPDATE_DESCRIPTION'=>'En el siguiente formulario puede modificar los datos del vehículo seleccionado.',
+    
+    'PAGE_VIEWVISITS_DESCRIPTION'=>'En este apartado podrá gestionar las visitas activas.',
+    'PAGE_VIEWVISITS_FORM_NEW_DESCRIPTION'=>'Para introducir un nuevo visita debe completar el siguiente formulario.',
+    'PAGE_VIEWVISITS_FORM_NEW_BTN_DESCRIPTION'=>'Nueva Visita',
+    'PAGE_VIEWVISITS_FORM_GRID_DESCRIPTION'=>'A continuación se muestra toda la información mediante celdas.',
+    'PAGE_VIEWVISITS_FORM_HEADER_VISIT'=>'Visita',
+    'PAGE_VIEWVISITS_FORM_HEADER_DATA'=>'Datos de la visita',
+    'PAGE_VIEWVISITS_FORM_HEADER_MANUALCARD'=>'Datos de la tarjeta',
+    'PAGE_VIEWVISITS_FORM_HEADER_RESPONSIBLE'=>'Responsable de la visita',
+    'PAGE_VIEWVISITS_FORM_HEADER_SIGNATURE'=>'Firma del visitante conforme ha recibido y leído las Normas de Seguridad y Medio Ambiente',
+    'PAGE_VIEWVISITS_FORM_SUBMIT_SUCCESS'=>'La visita se ha introducido correctamente, se ha asignado la tarjeta <i>{1}</i>.',
+    'PAGE_VIEWVISITS_BUTTON_EXIT_SUCCESS'=>'La visita se ha finalizado correctamente, se ha liberado la tarjeta <i>{1}</i>.',
+    'PAGE_VIEWVISITS_BUTTON_SIGNATURE_NAME'=>'Pulse aquí para empezar la firma digital',
+    'PAGE_VIEWVISITS_FORM_SUBMIT_ERROR_CARD_NOT_AVAILABLE'=>'ALERTA - Error durante el proceso de creación de una nueva visita. <br /><br /><i>Descripción: La tarjeta de visita {1} no esta disponible.</i>',
+    'PAGE_VIEWVISITS_FORM_SUBMIT_ERROR_CARD_NOT_AVAILABLE_GENERIC'=>'ALERTA - Error durante el proceso de creación de una nueva visita. <br /><br /><i>Descripción: La tarjeta introducida no esta disponible.</i>',
+	 'PAGE_VIEWVISITS_FORM_SUBMIT_ERROR_NOT_AVAILABLE_CARDS'=>'ALERTA - Error durante el proceso de creación de una nueva visita. <br /><br /><i>Descripción: Actualmente no hay tarjetas de visita disponibles.</i>',
+    'PAGE_VIEWVISITS_FORM_SUBMIT_ERROR'=>'Error {1}',
+    'PAGE_VIEWVISITS_FORM_SUBMIT_ERROR_MAX_IDBIOSTAR'=>'No hay suficientes identificadores libres (ID Biostar) para asignar a la visita. (Máx: {1})',
+    
+    'PAGE_VIEWHISTORICALVISITS_DESCRIPTION'=>'En este apartado podrá consultar todas las visitas realizadas.',
+    'PAGE_VIEWHISTORICALVISITS_FORM_GRID_DESCRIPTION'=>'A continuación se muestra toda la información histórica mediante celdas.', 
+    
+    'PAGE_UPDATEVISIT_FORM_UPDATE_DESCRIPTION'=>'En el siguiente formulario puede modificar los datos de la visita seleccionada.',
+    
+    'PAGE_VIEWVISUALPRESENCE_DESCRIPTION'=>'En este apartado podrá gestionar el personal que actualmente está dentro de las instalaciones.',
+    
+    'PAGE_VIEWNUMVISITS_DESCRIPTION'=>'En este apartado podrá observar gráficamente las visitas realizadas.',
+    'PAGE_VIEWNUMVISITS_FORM_FILTER_DESCRIPTION'=>'Para introducir un nuevo filtro debe completar el siguiente formulario.',
+    'PAGE_VIEWNUMVISITS_FORM_FILTER_BTN_DESCRIPTION'=>'Aplicar Filtros',
+    'PAGE_VIEWNUMVISITS_FORM_GRAPH_DESCRIPTION'=>'A continuación se muestra toda la información de forma gráfica.',
+    'PAGE_VIEWNUMVISITS_GRAPH_STATISTIC_TITLE'=>'Visitas',
+    'PAGE_VIEWNUMVISITS_GRAPH_STATISTIC_AXIS_Y_TITLE'=>'Cantidad de Visitas',
+    'PAGE_VIEWNUMVISITS_FORM_STATISTIC_TYPE_VISIT'=>'Visita',
+    'PAGE_VIEWNUMVISITS_FORM_STATISTIC_TYPE_VISITOR'=>'Visitante',
+    'PAGE_VIEWNUMVISITS_FORM_STATISTIC_TYPE_BUSINESS'=>'Empresa',
+    
+    'PAGE_VIEWPEOPLE_DESCRIPTION'=>'En este apartado podrá visualizar el personal que actualmente esta dentro de las instalaciones.', 
+    'PAGE_VIEWPEOPLE_FORM_LIST_DESCRIPTION'=>'Para visualizar el personal debe completar el siguiente formulario.',
+    
+    'ENROLL_SYNCHRONIZATION_SUCCESS'=>'La sincronización entre los visitantes y los dispositivos se ha efecutado correctamente',
+    'ENROLL_SYNCHRONIZATION_ERROR'=>'Error con la sincronización entre el visitante {1} y el dispositivo {2}.<br/>BiostarEnroll Comando: {3}',
+    'DISENROLL_SYNCHRONIZATION_SUCCESS'=>'La sincronización entre los visitantes y los dispositivos se ha efecutado correctamente',
+    'DISENROLL_SYNCHRONIZATION_ERROR'=>'Error con la sincronización entre el visitante {1} y el dispositivo {2}.<br/>BiostarDisenroll Comando: {3}',
+);
+?>

@@ -1,0 +1,84 @@
+DROP TABLE IF EXISTS `db_rainbow_visitorsmanagement`.`visitors_visits`;
+DROP TABLE IF EXISTS `db_rainbow_visitorsmanagement`.`visitors_plates`;
+DROP TABLE IF EXISTS `db_rainbow_visitorsmanagement`.`visitors_cards`;
+DROP TABLE IF EXISTS `db_rainbow_visitorsmanagement`.`visitors`;
+DROP TABLE IF EXISTS `db_rainbow_visitorsmanagement`.`visitors_destiny_vehicle`;
+DROP TABLE IF EXISTS `db_rainbow_visitorsmanagement`.`visitors_module_parameters`;
+
+CREATE DATABASE IF NOT EXISTS `db_rainbow_visitorsmanagement` CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_visitorsmanagement`.`visitors_module_parameters` (
+   `biostar_card_management` TINYINT(1) NOT NULL DEFAULT 0   
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_visitorsmanagement`.`visitors_destiny_vehicle` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(20) NOT NULL,
+   `num` INT,
+    
+   PRIMARY KEY (`id`),
+   UNIQUE idx_name_num (`name`, `num`)    
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_visitorsmanagement`.`visitors_plates` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `plate` VARCHAR(11) NOT NULL,
+   `employee` VARCHAR(38) NOT NULL,
+   `employee_identification` VARCHAR(12) NOT NULL,
+   `comments` VARCHAR(64),
+    
+   PRIMARY KEY (`id`),
+   UNIQUE idx_plate_employee (`plate`, `employee`) 
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_visitorsmanagement`.`visitors_cards` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `code` VARCHAR(20) NOT NULL UNIQUE KEY,
+   `assigned` TINYINT(1) NOT NULL DEFAULT 0,
+    
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_visitorsmanagement`.`visitors` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `first_name` VARCHAR(12) NOT NULL,
+   `middle_name` VARCHAR(12) NOT NULL,
+   `last_name` VARCHAR(12),
+   `full_name` VARCHAR(38) NOT NULL,
+   `identification` VARCHAR(12) NOT NULL UNIQUE KEY,
+   `business` VARCHAR(32),
+   `comments` VARCHAR(64),
+    
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_visitorsmanagement`.`visitors_visits` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `card_id` INT NOT NULL,
+   `card_code` VARCHAR(20) NOT NULL,
+   `card_information` VARCHAR(20),
+   `employee` VARCHAR(38) NOT NULL,
+   `employee_identification` VARCHAR(12) NOT NULL,
+   `employee_comments` VARCHAR(128),
+   `visitor_first_name` VARCHAR(12) NOT NULL,
+   `visitor_middle_name` VARCHAR(12) NOT NULL,
+   `visitor_last_name` VARCHAR(12),
+   `visitor_full_name` VARCHAR(38) NOT NULL,
+   `visitor_identification` VARCHAR(12) NOT NULL,
+   `visitor_business` VARCHAR(32),
+   `visitor_vehicle` TINYINT(1) NOT NULL DEFAULT 0, 
+   `visitor_vehicle_plate` VARCHAR(11),   
+   `visitor_destiny_vehicle` VARCHAR(32),
+   `visitor_comments` VARCHAR(128),
+   `visitor_signature` TEXT,
+   `reason` VARCHAR(64), 
+   `type` VARCHAR(20) NOT NULL,
+   `status` TINYINT(1) NOT NULL DEFAULT 0, 
+   `start_date` DATETIME NOT NULL,
+   `end_date` DATETIME,
+   `id_group_device` INT,
+   `id_biostar` INT UNIQUE KEY,
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;

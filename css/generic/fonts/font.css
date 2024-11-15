@@ -1,0 +1,40 @@
+.font_size_9px { font-size: 9px; }
+.font_size_10px { font-size: 10px; }
+.font_size_11px { font-size: 11px; }
+.font_size_12px { font-size: 12px; }
+.font_size_13px { font-size: 13px; }
+.font_size_14px { font-size: 14px; }
+
+.font_style_bold { font-weight: bold; }
+
+.font_color_darkgray { color: #555555; }
+.font_color_gray { color: #888888; }
+.font_color_lightgray { color: #dddddd; }
+
+.font_color_darkred { color: #552222; }
+.font_color_red { color: #993d3d; }
+.font_color_lightred { color: #ffcccc; }
+
+.font_color_darkgreen { color: #225522; }
+.font_color_green { color: #3d993d; }
+.font_color_lightgreen { color: #ccffcc; }
+
+.font_color_darkblue { color: #222255; }
+.font_color_blue { color: #3d3d99; }
+.font_color_lightblue { color: #ccccff; }
+
+.font_color_darkyellow { color: #777722; }
+.font_color_yellow { color: #e7e740; }
+.font_color_lightyellow { color: #ffffcc; }
+
+.font_color_darkpurple { color: #772277; }
+.font_color_purple { color: #e740e7; }
+.font_color_lightpurple { color: #ffccff; }
+
+.font_color_darkorange { color: #c85e00; }
+.font_color_orange { color: #ff7800; }
+.font_color_lightorange { color: #ffeccc; }
+
+.font_color_darkbrown { color: #3b2100; }
+.font_color_brown { color: #744000; }
+.font_color_lightbrown { color: #ffe4c0; }

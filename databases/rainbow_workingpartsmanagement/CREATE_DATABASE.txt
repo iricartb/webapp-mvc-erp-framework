@@ -1,0 +1,592 @@
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`workingpart_module_parameters`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`forms_work_requests`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_special_working_part_ipes`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_special_working_part_prevention_means`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_special_working_part_equipment_conditions`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_special_working_part_measures`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_special_working_part_employees`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`forms_special_working_parts`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_maintenance_working_part_components`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_maintenance_working_part_ipes`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_maintenance_working_part_risks`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_maintenance_working_part_equipment_conditions`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_maintenance_working_part_measures`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`forms_maintenance_working_parts`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_notification_working_part_ipes`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_notification_working_part_risks`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_notification_working_part_employees`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`forms_notification_working_parts`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_working_part_components`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_working_part_ipes`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_working_part_risks`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_working_part_equipment_conditions`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_working_part_measures`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`form_working_part_employees`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`forms_working_parts`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`prevention_means`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`priorities`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`equipment_conditions`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`methods`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`measures`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`equipments_risks`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`methods_risks`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`methods_ipes`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`risks_ipes`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`risks`;
+DROP TABLE IF EXISTS `db_rainbow_workingpartsmanagement`.`ipes`;
+
+CREATE DATABASE IF NOT EXISTS `db_rainbow_workingpartsmanagement` CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`workingpart_module_parameters` (   
+   `working_part_show_status_created` TINYINT(1) NOT NULL DEFAULT 1,
+   `working_part_show_status_pending` TINYINT(1) NOT NULL DEFAULT 0,
+   `working_part_show_status_running` TINYINT(1) NOT NULL DEFAULT 1,
+   `working_part_show_status_pending_absence` TINYINT(1) NOT NULL DEFAULT 0,
+   `working_part_show_status_halted` TINYINT(1) NOT NULL DEFAULT 0,
+   `working_part_show_status_finalized` TINYINT(1) NOT NULL DEFAULT 1,
+   `maintenance_working_part_show_status_created` TINYINT(1) NOT NULL DEFAULT 1,
+   `maintenance_working_part_show_status_pending` TINYINT(1) NOT NULL DEFAULT 0,
+   `maintenance_working_part_show_status_running` TINYINT(1) NOT NULL DEFAULT 1,
+   `maintenance_working_part_show_status_pending_absence` TINYINT(1) NOT NULL DEFAULT 0,
+   `maintenance_working_part_show_status_halted` TINYINT(1) NOT NULL DEFAULT 0,
+   `maintenance_working_part_show_status_finalized` TINYINT(1) NOT NULL DEFAULT 1,
+   `special_working_part_show_status_created` TINYINT(1) NOT NULL DEFAULT 1,
+   `special_working_part_show_status_pending` TINYINT(1) NOT NULL DEFAULT 0,
+   `special_working_part_show_status_running` TINYINT(1) NOT NULL DEFAULT 1,
+   `special_working_part_show_status_pending_absence` TINYINT(1) NOT NULL DEFAULT 0,
+   `special_working_part_show_status_halted` TINYINT(1) NOT NULL DEFAULT 0,
+   `special_working_part_show_status_finalized` TINYINT(1) NOT NULL DEFAULT 1,
+   `show_components` TINYINT(1) NOT NULL DEFAULT 0
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`ipes` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(64) NOT NULL UNIQUE KEY,
+    
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`risks` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(64) NOT NULL UNIQUE KEY,
+    
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`risks_ipes` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `id_risk` INT NOT NULL,
+   `id_ipe` INT NOT NULL,
+    
+   PRIMARY KEY (`id`),
+   INDEX (`id_risk`, `id_ipe`),
+   FOREIGN KEY (`id_risk`) REFERENCES `db_rainbow_workingpartsmanagement`.`risks`(`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`id_ipe`) REFERENCES `db_rainbow_workingpartsmanagement`.`ipes`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_risk_ipe (`id_risk`, `id_ipe`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`equipments_risks` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `id_equipment` INT NOT NULL,
+   `id_risk` INT NOT NULL,
+    
+   PRIMARY KEY (`id`),
+   INDEX (`id_equipment`, `id_risk`),
+   FOREIGN KEY (`id_equipment`) REFERENCES `db_rainbow_common`.`equipments`(`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`id_risk`) REFERENCES `db_rainbow_workingpartsmanagement`.`risks`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_equipment_risk (`id_equipment`, `id_risk`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`methods` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `code` VARCHAR(7) NOT NULL UNIQUE KEY,
+   `description` VARCHAR(160) NOT NULL,
+   `visible_working_part` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_special_working_part` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_maintenance_working_part` TINYINT(1) NOT NULL DEFAULT 0,
+   `undefined` TINYINT(1) NOT NULL 0,
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`methods_risks` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `id_method` INT NOT NULL,
+   `id_risk` INT NOT NULL,
+    
+   PRIMARY KEY (`id`),
+   INDEX (`id_method`, `id_risk`),
+   FOREIGN KEY (`id_method`) REFERENCES `db_rainbow_workingpartsmanagement`.`methods`(`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`id_risk`) REFERENCES `db_rainbow_workingpartsmanagement`.`risks`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_method_risk (`id_method`, `id_risk`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`methods_ipes` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `id_method` INT NOT NULL,
+   `id_ipe` INT NOT NULL,
+    
+   PRIMARY KEY (`id`),
+   INDEX (`id_method`, `id_ipe`),
+   FOREIGN KEY (`id_method`) REFERENCES `db_rainbow_workingpartsmanagement`.`methods`(`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`id_ipe`) REFERENCES `db_rainbow_workingpartsmanagement`.`ipes`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_method_risk (`id_method`, `id_ipe`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`measures` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `description` VARCHAR(90) NOT NULL UNIQUE KEY,
+   `visible_default_working_part` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_default_special_working_part` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_default_maintenance_working_part` TINYINT(1) NOT NULL DEFAULT 0,
+   `alert` VARCHAR(64),
+   `visible_alert_value_yes` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_no` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_np` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_default` TINYINT(1) NOT NULL DEFAULT 0,
+   `required_grade_preventive_action` TINYINT(1) NOT NULL DEFAULT 0,
+   `information` VARCHAR(40),
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`equipment_conditions` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `description` VARCHAR(90) NOT NULL UNIQUE KEY,
+   `visible_default_working_part` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_default_special_working_part` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_default_maintenance_working_part` TINYINT(1) NOT NULL DEFAULT 0,
+   `alert` VARCHAR(64),
+   `visible_alert_value_yes` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_no` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_np` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_default` TINYINT(1) NOT NULL DEFAULT 0,
+   `information` VARCHAR(40),
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`priorities` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `description` VARCHAR(20) NOT NULL UNIQUE KEY,
+   `priority` INT NOT NULL, 
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`prevention_means` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(64) NOT NULL UNIQUE KEY,
+    
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`forms_working_parts` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `owner` VARCHAR(38) NOT NULL,
+   `task` VARCHAR(128),
+   `priority` VARCHAR(20) NOT NULL,
+   `priority_number` INT NOT NULL,
+   `first_responsible` VARCHAR(38) NOT NULL,
+   `second_responsible` VARCHAR(38) NOT NULL,
+   `third_responsible` VARCHAR(38),
+   `fourth_responsible` VARCHAR(38) NOT NULL,
+   `method_code` VARCHAR(7) NOT NULL,
+   `method_description` VARCHAR(160) NOT NULL, 
+   `id_zone` INT NOT NULL,
+   `zone` VARCHAR(40) NOT NULL, 
+   `id_region` INT NOT NULL,
+   `region` VARCHAR(40) NOT NULL,
+   `id_equipment` INT NOT NULL,
+   `equipment` VARCHAR(40) NOT NULL,
+   `equipment_studio_electric` TINYINT(1) NOT NULL DEFAULT 0,
+   `equipment_studio_instrument` TINYINT(1) NOT NULL DEFAULT 0,
+   `equipment_studio_mechanic` TINYINT(1) NOT NULL DEFAULT 0,
+   `equipment_studio_others` VARCHAR(40),
+   `equipment_failure_reason` VARCHAR(96) NOT NULL,
+   `failure_reason` VARCHAR(255),
+   `failure_solution` VARCHAR(255), 
+   `comments` VARCHAR(512),
+   `status` VARCHAR(32) NOT NULL,
+   `start_date` DATETIME NOT NULL,
+   `end_date` DATETIME,
+   `id_maintenance_form_task` INT,
+   `id_form_work_request` INT,
+   `id_user` INT NOT NULL,
+   `data_completed` TINYINT(1) NOT NULL DEFAULT 0,
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_working_part_employees` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(38) NOT NULL,
+   `business` VARCHAR(32) NOT NULL,
+   `id_form_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_form_working_part`),
+   FOREIGN KEY (`id_form_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_working_parts`(`id`) ON DELETE CASCADE  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_working_part_measures` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `description` VARCHAR(90) NOT NULL,
+   `value` INT,
+   `alert` VARCHAR(64),
+   `visible_alert_value_yes` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_no` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_np` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_default` TINYINT(1) NOT NULL DEFAULT 0,
+   `required_grade_preventive_action` TINYINT(1) NOT NULL DEFAULT 0,
+   `information` VARCHAR(40),
+   `information_field` VARCHAR(40),
+   `custom` TINYINT(1) NOT NULL DEFAULT 0,
+   `custom_field` VARCHAR(90),
+   `id_form_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`description`, `id_form_working_part`),
+   FOREIGN KEY (`id_form_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_working_parts`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_description_foreignkey (`description`, `id_form_working_part`)  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_working_part_equipment_conditions` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `description` VARCHAR(90) NOT NULL,
+   `value` INT,
+   `alert` VARCHAR(64),
+   `visible_alert_value_yes` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_no` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_np` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_default` TINYINT(1) NOT NULL DEFAULT 0,
+   `information` VARCHAR(40),
+   `information_field` VARCHAR(40),
+   `custom` TINYINT(1) NOT NULL DEFAULT 0,
+   `custom_field` VARCHAR(90),
+   `id_form_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`description`, `id_form_working_part`),
+   FOREIGN KEY (`id_form_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_working_parts`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_description_foreignkey (`description`, `id_form_working_part`)  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_working_part_risks` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(64) NOT NULL,
+   `id_form_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`name`, `id_form_working_part`),
+   FOREIGN KEY (`id_form_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_working_parts`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_name_foreignkey (`name`, `id_form_working_part`)  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_working_part_ipes` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(64) NOT NULL,
+   `id_form_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`name`, `id_form_working_part`),
+   FOREIGN KEY (`id_form_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_working_parts`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_name_foreignkey (`name`, `id_form_working_part`) 
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_working_part_components` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `id_component` INT NOT NULL,
+   `component` VARCHAR(40) NOT NULL,
+   `id_form_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_component`, `id_form_working_part`),
+   FOREIGN KEY (`id_form_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_working_parts`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_component_foreignkey (`id_component`, `id_form_working_part`)  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`forms_notification_working_parts` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `owner` VARCHAR(38) NOT NULL,
+   `first_responsible` VARCHAR(38) NOT NULL,
+   `method_code` VARCHAR(7) NOT NULL,
+   `method_description` VARCHAR(160) NOT NULL, 
+   `id_zone` INT NOT NULL,
+   `zone` VARCHAR(40) NOT NULL, 
+   `id_region` INT NOT NULL,
+   `region` VARCHAR(40) NOT NULL,
+   `id_equipment` INT NOT NULL,
+   `equipment` VARCHAR(40) NOT NULL,
+   `equipment_failure_reason` VARCHAR(96) NOT NULL,
+   `status` VARCHAR(32) NOT NULL,
+   `start_date` DATETIME NOT NULL,
+   `end_date` DATETIME,
+   `id_user` INT NOT NULL,
+   `data_completed` TINYINT(1) NOT NULL DEFAULT 0,
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_notification_working_part_employees` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(38) NOT NULL,
+   `business` VARCHAR(32) NOT NULL,
+   `id_form_notification_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_form_notification_working_part`),
+   FOREIGN KEY (`id_form_notification_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_notification_working_parts`(`id`) ON DELETE CASCADE  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_notification_working_part_risks` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(64) NOT NULL,
+   `id_form_notification_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`name`, `id_form_notification_working_part`),
+   FOREIGN KEY (`id_form_notification_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_notification_working_parts`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_name_foreignkey (`name`, `id_form_notification_working_part`)  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_notification_working_part_ipes` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(64) NOT NULL,
+   `id_form_notification_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`name`, `id_form_notification_working_part`),
+   FOREIGN KEY (`id_form_notification_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_notification_working_parts`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_name_foreignkey (`name`, `id_form_notification_working_part`) 
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`forms_maintenance_working_parts` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `owner` VARCHAR(38) NOT NULL,
+   `task` VARCHAR(128),
+   `priority` VARCHAR(20) NOT NULL,
+   `priority_number` INT NOT NULL,
+   `first_responsible` VARCHAR(38) NOT NULL,
+   `second_responsible` VARCHAR(38) NOT NULL,
+   `third_responsible` VARCHAR(38),
+   `fourth_responsible` VARCHAR(38),
+   `fifth_responsible` VARCHAR(38),
+   `sixth_responsible` VARCHAR(38),
+   `method_code` VARCHAR(7) NOT NULL,
+   `method_description` VARCHAR(160) NOT NULL,
+   `id_zone` INT NOT NULL,
+   `zone` VARCHAR(40) NOT NULL, 
+   `id_region` INT NOT NULL,
+   `region` VARCHAR(40) NOT NULL,
+   `id_equipment` INT NOT NULL,
+   `equipment` VARCHAR(40) NOT NULL,
+   `equipment_failure_reason` VARCHAR(96) NOT NULL,
+   `failure_reason` VARCHAR(255),
+   `failure_solution` VARCHAR(255), 
+   `comments` VARCHAR(512),
+   `status` VARCHAR(32) NOT NULL,
+   `start_date` DATETIME NOT NULL,
+   `end_date` DATETIME,
+   `id_maintenance_form_task` INT,
+   `id_form_work_request` INT,
+   `id_user` INT NOT NULL,
+   `data_completed` TINYINT(1) NOT NULL DEFAULT 0,
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_maintenance_working_part_measures` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `description` VARCHAR(90) NOT NULL,
+   `value` INT,
+   `alert` VARCHAR(64),
+   `visible_alert_value_yes` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_no` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_np` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_default` TINYINT(1) NOT NULL DEFAULT 0,
+   `required_grade_preventive_action` TINYINT(1) NOT NULL DEFAULT 0,
+   `information` VARCHAR(40),
+   `information_field` VARCHAR(40),
+   `custom` TINYINT(1) NOT NULL DEFAULT 0,
+   `custom_field` VARCHAR(90),
+   `id_form_maintenance_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`description`, `id_form_maintenance_working_part`),
+   FOREIGN KEY (`id_form_maintenance_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_maintenance_working_parts`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_description_foreignkey (`description`, `id_form_maintenance_working_part`)  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_maintenance_working_part_equipment_conditions` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `description` VARCHAR(90) NOT NULL,
+   `value` INT,
+   `alert` VARCHAR(64),
+   `visible_alert_value_yes` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_no` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_np` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_default` TINYINT(1) NOT NULL DEFAULT 0,
+   `information` VARCHAR(40),
+   `information_field` VARCHAR(40),
+   `custom` TINYINT(1) NOT NULL DEFAULT 0,
+   `custom_field` VARCHAR(90),
+   `id_form_maintenance_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`description`, `id_form_maintenance_working_part`),
+   FOREIGN KEY (`id_form_maintenance_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_maintenance_working_parts`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_description_foreignkey (`description`, `id_form_maintenance_working_part`)  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_maintenance_working_part_risks` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(64) NOT NULL,
+   `id_form_maintenance_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`name`, `id_form_maintenance_working_part`),
+   FOREIGN KEY (`id_form_maintenance_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_maintenance_working_parts`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_name_foreignkey (`name`, `id_form_maintenance_working_part`)  
+) ENGINE=innodb;
+
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_maintenance_working_part_ipes` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(64) NOT NULL,
+   `id_form_maintenance_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`name`, `id_form_maintenance_working_part`),
+   FOREIGN KEY (`id_form_maintenance_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_maintenance_working_parts`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_name_foreignkey (`name`, `id_form_maintenance_working_part`) 
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_maintenance_working_part_components` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `id_component` INT NOT NULL,
+   `component` VARCHAR(40) NOT NULL,
+   `id_form_maintenance_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_component`, `id_form_maintenance_working_part`),
+   FOREIGN KEY (`id_form_maintenance_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_maintenance_working_parts`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_component_foreignkey (`id_component`, `id_form_maintenance_working_part`)  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`forms_special_working_parts` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `owner` VARCHAR(38) NOT NULL,
+   `task` VARCHAR(128),
+   `first_responsible` VARCHAR(38) NOT NULL,
+   `third_responsible` VARCHAR(38),
+   `method_code` VARCHAR(7) NOT NULL,
+   `method_description` VARCHAR(160) NOT NULL,
+   `installation` VARCHAR(40) NOT NULL,
+   `work` VARCHAR(40) NOT NULL,
+   `work_others` VARCHAR(40),
+   `work_description` VARCHAR(96) NOT NULL,
+   `supplement_instructions` VARCHAR(255),
+   `permission_renovation` TINYINT(1) NOT NULL DEFAULT 0,
+   `status` VARCHAR(32) NOT NULL,
+   `start_date` DATETIME NOT NULL,
+   `end_date` DATETIME,
+   `id_maintenance_form_task` INT,
+   `id_form_work_request` INT,
+   `id_user` INT NOT NULL,
+   `data_completed` TINYINT(1) NOT NULL DEFAULT 0,
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_special_working_part_employees` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(38) NOT NULL,
+   `business` VARCHAR(32) NOT NULL,
+   `id_form_special_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_form_special_working_part`),
+   FOREIGN KEY (`id_form_special_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_special_working_parts`(`id`) ON DELETE CASCADE  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_special_working_part_measures` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `description` VARCHAR(90) NOT NULL,
+   `value` INT,
+   `alert` VARCHAR(64),
+   `visible_alert_value_yes` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_no` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_np` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_default` TINYINT(1) NOT NULL DEFAULT 0,
+   `required_grade_preventive_action` TINYINT(1) NOT NULL DEFAULT 0,
+   `information` VARCHAR(40),
+   `information_field` VARCHAR(40),
+   `custom` TINYINT(1) NOT NULL DEFAULT 0,
+   `custom_field` VARCHAR(90),
+   `id_form_special_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`description`, `id_form_special_working_part`),
+   FOREIGN KEY (`id_form_special_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_special_working_parts`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_description_foreignkey (`description`, `id_form_special_working_part`)  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_special_working_part_equipment_conditions` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `description` VARCHAR(90) NOT NULL,
+   `value` INT,
+   `alert` VARCHAR(64),
+   `visible_alert_value_yes` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_no` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_np` TINYINT(1) NOT NULL DEFAULT 0,
+   `visible_alert_value_default` TINYINT(1) NOT NULL DEFAULT 0,
+   `information` VARCHAR(40),
+   `information_field` VARCHAR(40),
+   `custom` TINYINT(1) NOT NULL DEFAULT 0,
+   `custom_field` VARCHAR(90),
+   `id_form_special_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`description`, `id_form_special_working_part`),
+   FOREIGN KEY (`id_form_special_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_special_working_parts`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_description_foreignkey (`description`, `id_form_special_working_part`)  
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_special_working_part_prevention_means` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(64) NOT NULL,
+   `id_form_special_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`name`, `id_form_special_working_part`),
+   FOREIGN KEY (`id_form_special_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_special_working_parts`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_name_foreignkey (`name`, `id_form_special_working_part`) 
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`form_special_working_part_ipes` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(64) NOT NULL,
+   `id_form_special_working_part` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`name`, `id_form_special_working_part`),
+   FOREIGN KEY (`id_form_special_working_part`) REFERENCES `db_rainbow_workingpartsmanagement`.`forms_special_working_parts`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_name_foreignkey (`name`, `id_form_special_working_part`) 
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_workingpartsmanagement`.`forms_work_requests` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `owner` VARCHAR(38) NOT NULL,
+   `priority` VARCHAR(20) NOT NULL,
+   `priority_number` INT NOT NULL,
+   `description` VARCHAR(512) NOT NULL,
+   `comments` VARCHAR(512),
+   `status` VARCHAR(32) NOT NULL,
+   `visible_date` DATE,
+   `start_date` DATETIME NOT NULL,
+   `end_date` DATETIME,
+   `id_user` INT NOT NULL,
+
+   PRIMARY KEY (`id`)
+) ENGINE=innodb;

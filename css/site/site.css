@@ -1,0 +1,246 @@
+#document {
+    background: url('../../images/site/background.jpg') no-repeat center center fixed;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    overflow: hidden;
+}
+
+#document #div_login_container_header { 
+    height: 75px; 
+    width: 500px; 
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    margin: -265px 0 0 -250px; 
+}
+
+#document #div_login_container_body {
+    height: 375px;
+    width: 500px;
+    position: absolute;  
+    top: 50%; 
+    left: 50%; 
+    margin: -187px 0 0 -250px;  
+}
+
+#document #div_login_container_body #div_login_container_body_box {
+    margin: 0 auto;
+    background: url('../../images/site/login_background.png') no-repeat center center;
+    height: 360px;
+	 width: 333px;
+	 padding: 15px 76px 0 76px;
+	 color: #ebebeb;
+	 font: 12px Arial, Helvetica, sans-serif;
+}
+
+#document #div_login_container_body #div_login_container_body_box #div_login_container_body_box_elements {
+    padding-top: 20px;
+}
+ 
+#document #div_login_container_body #div_login_container_body_box #div_login_container_body_box_elements #div_login_container_body_box_description {
+    padding-top: 25px;
+    padding-bottom: 35px;
+}
+
+#document #div_login_container_body #div_login_container_body_box #div_login_container_body_box_elements #div_login_container_body_box_username {
+    padding-bottom: 7px;
+    height: 40px;
+}
+
+#document #div_login_container_body #div_login_container_body_box #div_login_container_body_box_elements #div_login_container_body_box_password {
+    padding-bottom: 0px;
+    height: 40px;
+}
+
+#document #div_login_container_body #div_login_container_body_box #div_login_container_body_box_elements #div_login_container_body_box_options {
+    padding-bottom: 20px;
+}
+
+#document #div_login_container_body #div_login_container_body_box #div_login_container_body_box_elements #div_login_container_body_box_submit {
+    padding-bottom: 16px;
+}
+
+#document #div_login_container_body #div_login_container_body_box #div_login_container_body_box_elements #div_login_container_body_box_err {
+    color: darkgray;
+    font-weight: bold;
+    text-align: center;
+}
+
+#document #div_login_container_body #div_login_container_body_box #div_login_container_body_box_elements #div_login_container_body_box_submit #button_submit {
+    width: 103px;
+    height: 42px;
+    margin-left: 90px;
+}
+                  
+#document #div_login_container_body #div_login_container_body_box #div_login_container_body_box_elements img {
+	border: none;
+}
+
+#document #div_login_container_body #div_login_container_body_box #div_login_container_body_box_elements #div_login_container_body_box_header {
+    display: table-row;   
+}
+
+#document #div_login_container_body #div_login_container_body_box #div_login_container_body_box_elements #div_login_container_body_box_header #div_login_container_body_box_header_image {
+    float: left;
+}
+
+#document #div_login_container_body #div_login_container_body_box #div_login_container_body_box_elements #div_login_container_body_box_header #div_login_container_body_box_header_title {
+    margin-left: 10px;
+    margin-top: 3px;
+    float: left;         
+}
+
+#document #div_login_container_body #div_login_container_body_box #div_login_container_body_box_elements #div_login_container_body_box_header #div_login_container_body_box_header_title h2 {
+	padding: 0;
+	margin: 0;
+	color: #ebebeb;
+	font: bold 24px "Sans-serif", Arial;   
+}
+
+#document #div_login_container_body #div_login_container_body_box #div_login_container_body_box_elements #login-box-name {
+	float: left;
+	display: inline;
+	width: 80px;
+	text-align: right;
+	padding: 14px 10px 0 0;
+	margin: 0px 0 7px 0;
+}
+
+#document #div_login_container_body #div_login_container_body_box #div_login_container_body_box_elements #login-box-field {
+	float: left;
+	display: inline;
+	width: 230px;
+	margin: 0;
+	margin: 0 0 7px 0;      
+}
+
+#document #div_login_container_body #div_login_container_body_box #div_login_container_body_box_elements .form-login  {
+	width: 205px;
+	padding: 10px 4px 6px 3px;
+	border: 1px solid #0d2c52;
+	background-color:#1e4f8a;
+	font-size: 16px;
+	color: #ebebeb;
+}
+
+#document #div_login_container_body #div_login_container_body_box #div_login_container_body_box_elements .login-box-options  {
+	clear: both;
+	padding-left: 87px;
+	font-size: 11px;  
+}
+
+#document #div_login_container_footer {
+    height: 20px; 
+    width: 500px; 
+    position: absolute;  
+    top: 50%; 
+    left: 50%; 
+    margin: 190px 0 0 -250px;  
+}
+
+#document #div_login_container_footer #div_login_container_footer_items {
+   margin: 0 auto; 
+   width: 400px; 
+   font-size: 11px;
+}
+
+#document #div_login_container_footer_banner {
+   height: 30px; 
+   width: 500px; 
+   position: absolute;  
+   top: 50%; 
+   left: 50%; 
+   text-align: center;
+   margin: 260px 0 0 -250px; 
+}
+
+#document #div_login_container_footer #div_login_container_footer_items .footer-item {
+   float: left;
+   color: darkgray;
+}
+
+#document #div_login_container_footer #div_login_container_footer_items .footer-separator {
+   float: left;
+   padding: 0px 5px 0px 5px; 
+   color: gray;
+}
+
+.right-angle-arrow {
+   display: inline-block;
+   position: relative;
+}
+
+.right-angle-arrow:after {
+   content: '';
+   display: block;  
+   position: absolute;
+   left: 0;
+   top: 0;
+   width: 0;
+   height: 0;
+   border-top: 17px solid darkcyan;
+   border-right: 17px solid transparent;
+   border-bottom: 0 solid transparent;
+   border-left: 0 solid transparent;
+}
+
+.left-angle-arrow {
+   display: inline-block;
+   position: relative;
+}
+
+.left-angle-arrow:after {
+   content: '';
+   display: block;  
+   position: absolute;
+   left: 0;
+   top: 0;
+   width: 0;
+   height: 0;
+   border-top: 17px solid darkcyan;
+   border-right: 0 solid transparent;
+   border-bottom: 0 solid transparent;
+   border-left: 17px solid transparent;
+}
+
+.right-angle-arrow-yellow:after {
+   border-top: 17px solid #ffe2c2;
+   border-right: 0 solid transparent;
+   border-bottom: 0 solid transparent;
+   border-left: 17px solid transparent;
+}
+
+.left-angle-arrow-yellow:after {
+   border-top: 17px solid #ffe2c2;
+   border-right: 17px solid transparent;
+   border-bottom: 0 solid transparent;
+   border-left: 0 solid transparent;
+}
+
+#div_server_info_left_arrow {
+   position: absolute; 
+   top: 0; 
+   left: calc(50% - 267px);
+}
+
+#div_server_info_right_arrow {
+   position: absolute; 
+   top: 0; 
+   left: calc(50% + 250px);
+}
+
+#div_server_info {
+   width: 500px; 
+   background-color: #ffe2c2; 
+   position: absolute; 
+   top: 0; 
+   left: calc(50% - 250px);
+}
+
+#div_server_info_text {
+   text-align: center; 
+   font-size: 11px;
+}

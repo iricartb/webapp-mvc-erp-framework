@@ -1,0 +1,74 @@
+#id_page_footer_events {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   height: 70px;
+   color: black;
+   opacity: 0;      
+}
+
+#id_page_footer_events .box_event {
+   width: 50%;
+   margin: 0 auto;
+}
+
+#id_page_footer_events .box_event .box_event_image {
+   float: left;
+   width: 30%;
+   text-align: right;   
+}
+
+#id_page_footer_events .box_event .box_event_message {
+   float: left;
+   width: 65%;
+   margin-left: 20px;
+   text-align: left; 
+   height: 50px;
+   border-radius: 5px 5px 5px 5px;
+   -moz-border-radius: 5px 5px 5px 5px;
+   -webkit-border-radius: 5px 5px 5px 5px;
+   background-color: white;
+   padding: 6px;   
+}
+
+#id_page_footer_events .box_event .box_event_message .box_event_message_header { 
+   height: 24px;
+}
+
+#id_page_footer_events .box_event .box_event_message .box_event_message_header .box_event_message_header_box_title {
+   float: left;
+}
+
+#id_page_footer_events .box_event .box_event_message .box_event_message_header .box_event_message_header_box_title .box_event_message_header_title { 
+   float: left;      
+}
+
+#id_page_footer_events .box_event .box_event_message .box_event_message_header .box_event_message_header_box_title .box_event_message_header_date { 
+   float: left; 
+   margin-left: 10px; 
+   font-style: italic;
+   color: #888;
+}
+
+#id_page_footer_events .box_event .box_event_message .box_event_message_header .box_event_message_header_box_title .box_event_message_header_owner { 
+   float: left; 
+   margin-left: 10px;
+   font-style: italic;
+   color: #888;
+}
+
+#id_page_footer_events .box_event .box_event_message .box_event_message_header .box_event_message_header_box_pagination {
+   float: right;
+}
+
+#id_page_footer_events .box_event .box_event_message .box_event_message_header .box_event_message_header_box_pagination .box_event_message_header_pagination {
+   float: left; 
+   font-style: italic;
+   color: #888; 
+   margin-right: 5px;
+}
+
+#id_page_footer_events .box_event .box_event_message .box_event_message_body {
+   font-size: 11px; 
+}

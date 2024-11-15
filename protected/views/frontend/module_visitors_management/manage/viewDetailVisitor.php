@@ -1,0 +1,19 @@
+<?php $this->widget('zii.widgets.CDetailView', array(
+    'data'=>$oModelForm,
+    'attributes'=>array(
+        array(
+            'name'=>'full_name',
+        ),
+        array(
+            'name'=>'identification',
+        ),
+        array(
+            'name'=>'business',
+        ),
+        array(
+            'name'=>'comments',
+        ),
+    ),
+    'nullDisplay'=>FString::STRING_EMPTY,
+));
+?>

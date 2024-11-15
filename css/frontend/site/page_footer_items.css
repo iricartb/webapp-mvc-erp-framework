@@ -1,0 +1,96 @@
+#id_page_footer_items {
+   min-width: 986px;
+   width: 90%; 
+   margin: 0px auto 15px;
+   display: table; 
+}
+
+#id_page_footer_items .footer_logo {
+   display: table-cell;
+   width: 30.4%; 
+   min-width: 300px; 
+   vertical-align: bottom;
+}
+
+#id_page_footer_items .footer_logo .footer_item_bottom {
+   display: table-cell;     
+   vertical-align: bottom;
+}
+
+#id_page_footer_items .footer_logo .footer_item_middle {
+   display: table-cell;
+   font-weight: bold;
+   vertical-align: middle;
+}
+
+#id_page_footer_items .footer_logo .footer_logo_image {
+   padding-right: 10px;
+}
+
+#id_page_footer_items .footer_logo .footer_logo_text { 
+   font-family: Arial;
+   font-size: 14px; 
+}
+
+#id_page_footer_items .footer_logo .footer_logo_text_detail {
+   font-family: Arial;
+   font-size: 11px;
+}          
+               
+#id_page_footer_items .footer_items {
+   display: table-cell;
+   width: 69.6%; 
+   min-width: 686px;
+   text-align: right;  
+   vertical-align: bottom;
+}
+                   
+#id_page_footer_items .footer_items .footer_item {
+   display: inline-block; 
+   vertical-align: bottom;
+}
+
+#id_page_footer_items .footer_items .footer_item .footer_item_image {
+   display: table-cell;
+   padding-right: 5px; 
+}
+
+#id_page_footer_items .footer_items .footer_item .footer_item_image .footer_item_notification_number {
+   position:relative; 
+   left: 12px; 
+   top: 2px; 
+   font-size: 10px; 
+   font-weight: bold; 
+   border-radius: 3px; 
+   padding-left: 4px; 
+   padding-right: 5px;
+   z-index: -1;
+}
+
+#id_page_footer_items .footer_items .footer_item .footer_item_image .color_red {
+   color: white; 
+   background-color: red; 
+}
+
+#id_page_footer_items .footer_items .footer_item .footer_item_image .color_white {
+   color: black; 
+   background-color: white; 
+}
+
+#id_page_footer_items .footer_items .footer_item .footer_item_image img {
+   vertical-align: middle;
+}
+ 
+#id_page_footer_items .footer_items .footer_item .footer_item_text {
+   display: table-cell;
+   vertical-align: middle;
+   font-size: 11px;       
+}
+
+#id_page_footer_items .footer_items .footer_item .footer_item_separator {
+   display: table-cell;
+}
+
+#id_page_footer_items .footer_items .footer_item .footer_item_separator img {
+   vertical-align: middle;
+}

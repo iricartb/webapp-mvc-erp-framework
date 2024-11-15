@@ -1,0 +1,332 @@
+DROP TABLE IF EXISTS `db_rainbow_common`.`articles`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`events_users`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`events`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`equipments_components`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`components`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`regions_equipments`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`zones_regions`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`regions`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`zones`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`equipments`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`providers`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`employees_departments`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`employees`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`businesses`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`users_modules_privileges`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`modules_headers_lines`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`modules_headers`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`modules`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`users`;
+DROP TABLE IF EXISTS `db_rainbow_common`.`application`;
+
+CREATE DATABASE IF NOT EXISTS `db_rainbow_common` CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`application` (
+   `language` VARCHAR(3) NOT NULL DEFAULT 'ES',
+   `login_show_browsers` TINYINT(1) NOT NULL DEFAULT 0,
+   `business_name` VARCHAR(50) NOT NULL,
+   `business_application_text` VARCHAR(25),
+   `business_application_text_detail` VARCHAR(50), 
+   `business_nif` VARCHAR(12) NOT NULL,
+   `business_address` VARCHAR(64) NOT NULL,
+   `business_address_abbreviation` VARCHAR(40),
+   `business_zipcode` VARCHAR(5) NOT NULL,
+   `business_province` VARCHAR(32) NOT NULL,
+   `business_post_address` VARCHAR(64),
+   `business_post_zipcode` VARCHAR(5),
+   `business_post_province` VARCHAR(32),
+   `business_phone` VARCHAR(9),
+   `business_fax` VARCHAR(9),
+   `business_application_logo` VARCHAR(64),
+   `business_logo` VARCHAR(64)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`users` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `first_name` VARCHAR(12) NOT NULL,
+   `middle_name` VARCHAR(12),
+   `last_name` VARCHAR(12),
+   `full_name` VARCHAR(38) NOT NULL,
+   `identification` VARCHAR(12) NOT NULL UNIQUE KEY,
+   `role` VARCHAR(20) NOT NULL DEFAULT 'USER',
+   `passwd` VARCHAR(32) NOT NULL,
+   `mail_smtp_mail` VARCHAR(30),
+   `mail_smtp_host` VARCHAR(30),
+   `mail_smtp_port` SMALLINT UNSIGNED,
+   `mail_smtp_user` VARCHAR(30),
+   `mail_smtp_passwd` VARCHAR(20),
+   `mail_smtp_ssl` TINYINT(1) NOT NULL DEFAULT 0,
+   `notify_events` TINYINT(1) NOT NULL DEFAULT 1,
+   `language` VARCHAR(3) NOT NULL DEFAULT 'ES',
+   `def_application` VARCHAR(40), 
+    
+   PRIMARY KEY (`id`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`modules` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(40) NOT NULL UNIQUE KEY,
+   `serial` VARCHAR(32),
+   `order` INT NOT NULL DEFAULT 0,
+    
+   PRIMARY KEY (`id`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`modules_headers` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(40) NOT NULL,
+   `module` VARCHAR(40) NOT NULL,
+   `role` VARCHAR(20) NOT NULL DEFAULT 'USER',
+    
+   PRIMARY KEY (`id`),
+   INDEX (`module`),
+   FOREIGN KEY (`module`) REFERENCES `db_rainbow_common`.`modules`(`name`) ON DELETE CASCADE
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`modules_headers_lines` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(40) NOT NULL, 
+   `action` VARCHAR(128),
+   `dependency` VARCHAR(40),
+   `id_module_header` INT NOT NULL,
+    
+   PRIMARY KEY (`id`),
+   INDEX (`id_module_header`),
+   FOREIGN KEY (`id_module_header`) REFERENCES `db_rainbow_common`.`modules_headers`(`id`) ON DELETE CASCADE
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`users_modules_privileges` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `role` VARCHAR(20) NOT NULL DEFAULT 'USER',
+   `active` TINYINT(1) NOT NULL DEFAULT 1,
+   `module` VARCHAR(40) NOT NULL,
+   `id_user` INT NOT NULL,
+    
+   PRIMARY KEY (`id`),
+   INDEX (`id_user`, `module`),
+   FOREIGN KEY (`id_user`) REFERENCES `db_rainbow_common`.`users`(`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`module`) REFERENCES `db_rainbow_common`.`modules`(`name`) ON DELETE CASCADE,
+   UNIQUE idx_user_module (`id_user`, `module`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`businesses` (
+   `id` VARCHAR(12) NOT NULL UNIQuE KEY,
+   `name` VARCHAR(96) NOT NULL UNIQuE KEY, 
+   `nif` VARCHAR(14) NOT NULL UNIQUE KEY,
+   `address` VARCHAR(64),
+   `mail` VARCHAR(60),
+   `phone` VARCHAR(12),
+   `fax` VARCHAR(12),
+   `www` VARCHAR(32),
+   `contact` VARCHAR(38),
+
+   PRIMARY KEY (`id`),
+   INDEX (`name`, `nif`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`employees` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `first_name` VARCHAR(12) NOT NULL,
+   `middle_name` VARCHAR(12) NOT NULL,
+   `last_name` VARCHAR(12),
+   `full_name` VARCHAR(38) NOT NULL,
+   `identification` VARCHAR(12) NOT NULL UNIQUE KEY,
+   `num_employee` VARCHAR(12),
+   `start_date` DATE NOT NULL,
+   `end_date` DATE,
+   `type` VARCHAR(20) NOT NULL,
+   `top_department` VARCHAR(40),
+   `access_code` VARCHAR(20),
+   `access_code_FIR` TEXT,
+   `access_code_FIR_2` TEXT,
+   `access_process_delay` TINYINT(1) NOT NULL DEFAULT 1,
+   `access_tolerance` INT NOT NULL DEFAULT 0,
+   `access_information` VARCHAR(20),
+   `grade_preventive_action` TINYINT(1) NOT NULL DEFAULT 0,
+   `active` TINYINT(1) NOT NULL DEFAULT 1,
+   `inside` TINYINT(1) NOT NULL DEFAULT 0,
+   `show_visual_presence` TINYINT(1) NOT NULL DEFAULT 0,
+   `id_user` INT, 
+   `id_business` VARCHAR(12),
+   `id_group_device` INT,
+   `id_biostar` INT UNIQUE KEY,
+   `pending_synchronize` TINYINT(1) NOT NULL DEFAULT 0,
+   `pending_synchronize_action` VARCHAR(12),
+   `pending_synchronize_id_group_device` INT,
+   `signature` VARCHAR(255),
+   `image` VARCHAR(255),
+ 
+   FOREIGN KEY (`id_user`) REFERENCES `db_rainbow_common`.`users`(`id`) ON DELETE SET NULL,
+   FOREIGN KEY (`id_business`) REFERENCES `db_rainbow_common`.`businesses`(`id`) ON DELETE SET NULL,
+   PRIMARY KEY (`id`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`employees_departments` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `employee_identification` VARCHAR(12) NOT NULL,
+   `responsability` VARCHAR(20),
+   `department` VARCHAR(40) NOT NULL,
+   `main` TINYINT(1) NOT NULL DEFAULT 0,
+    
+   PRIMARY KEY (`id`),
+   INDEX (`employee_identification`, `responsability`, `department`),
+   FOREIGN KEY (`employee_identification`) REFERENCES `db_rainbow_common`.`employees`(`identification`) ON DELETE CASCADE,
+   UNIQUE idx_employee_department (`employee_identification`, `responsability`, `department`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`providers` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(90) NOT NULL,
+   `nif` VARCHAR(14) NOT NULL UNIQUE KEY,
+   `account` VARCHAR(15),
+   `phone` VARCHAR(12),
+   `mail` VARCHAR(60),
+   `module` VARCHAR(40),
+
+   PRIMARY KEY (`id`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`equipments` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(40) NOT NULL,
+   `tag` VARCHAR(10),
+   `manufacturer` VARCHAR(40),
+   `installation_date` DATE,
+   `model` VARCHAR(40),
+   `serial_number` VARCHAR(40),
+   `module` VARCHAR(40),
+   `image` VARCHAR(255),
+   `attachment` VARCHAR(255),
+   `dimension_x` DECIMAL(5,2),
+   `dimension_y` DECIMAL(5,2),
+   `dimension_z` DECIMAL(5,2),
+   `scene_coord_x` DECIMAL(5,2) NOT NULL DEFAULT 0,
+   `scene_coord_y` DECIMAL(5,2) NOT NULL DEFAULT 0,
+   `scene_image` VARCHAR(255),
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`zones` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(40) NOT NULL,
+   `module` VARCHAR(40),
+   `image` VARCHAR(255),
+   `area` INT,
+   `scene_coord_x` DECIMAL(5,2) NOT NULL DEFAULT 0,
+   `scene_coord_y` DECIMAL(5,2) NOT NULL DEFAULT 0,
+   `scene_image` VARCHAR(255),
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`regions` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(40) NOT NULL,
+   `module` VARCHAR(40),
+   `image` VARCHAR(255),
+   `area` INT,
+   `scene_coord_x` DECIMAL(5,2) NOT NULL DEFAULT 0,
+   `scene_coord_y` DECIMAL(5,2) NOT NULL DEFAULT 0,
+   `scene_image` VARCHAR(255),
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`zones_regions` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `id_zone` INT NOT NULL,
+   `id_region` INT NOT NULL,
+   `module` VARCHAR(40),
+ 
+   PRIMARY KEY (`id`),
+   INDEX (`id_zone`, `id_region`),
+   FOREIGN KEY (`id_zone`) REFERENCES `db_rainbow_common`.`zones`(`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`id_region`) REFERENCES `db_rainbow_common`.`regions`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_zone_region (`id_zone`, `id_region`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`regions_equipments` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `id_region` INT NOT NULL,
+   `id_equipment` INT NOT NULL,
+   `module` VARCHAR(40),
+ 
+   PRIMARY KEY (`id`),
+   INDEX (`id_region`, `id_equipment`),
+   FOREIGN KEY (`id_region`) REFERENCES `db_rainbow_common`.`regions`(`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`id_equipment`) REFERENCES `db_rainbow_common`.`equipments`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_region_equipment (`id_region`, `id_equipment`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`components` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(40) NOT NULL,
+
+   PRIMARY KEY (`id`)     
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`equipments_components` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `id_equipment` INT NOT NULL,
+   `id_component` INT NOT NULL,
+ 
+   PRIMARY KEY (`id`),
+   INDEX (`id_equipment`, `id_component`),
+   FOREIGN KEY (`id_equipment`) REFERENCES `db_rainbow_common`.`equipments`(`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`id_component`) REFERENCES `db_rainbow_common`.`components`(`id`) ON DELETE CASCADE,
+   UNIQUE idx_equipment_component (`id_equipment`, `id_component`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`events` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `module` VARCHAR(40),
+   `title` VARCHAR(64) NOT NULL,
+   `message` VARCHAR(160) NOT NULL,
+   `message_parameter` VARCHAR(64),
+   `translate` TINYINT(1) NOT NULL DEFAULT 1,
+   `system` TINYINT(1) NOT NULL DEFAULT 1,
+   `send_date` DATETIME NOT NULL,
+   `id_user` INT,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_user`)
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`events_users` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `read_event` TINYINT(1) NOT NULL DEFAULT 0,
+   `notify_event` TINYINT(1) NOT NULL DEFAULT 0,
+   `id_user` INT NOT NULL,
+   `id_event` INT NOT NULL,
+
+   PRIMARY KEY (`id`),
+   INDEX (`id_user`, `id_event`),
+   FOREIGN KEY (`id_user`) REFERENCES `db_rainbow_common`.`users`(`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`id_event`) REFERENCES `db_rainbow_common`.`events`(`id`) ON DELETE CASCADE
+) ENGINE=innodb;
+
+CREATE TABLE IF NOT EXISTS `db_rainbow_common`.`articles` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(128) NOT NULL,
+   `model` VARCHAR(40),
+   `code_barcode` VARCHAR(20),
+   `code_kks` VARCHAR(20),
+   `description` VARCHAR(255),
+   `quantity_min` INT NOT NULL DEFAULT 0,
+   `quantity` INT NOT NULL DEFAULT 0,
+	`price_medium` DECIMAL(12,3) NOT NULL DEFAULT 0.000,
+   `weight` DECIMAL(8,2) NOT NULL DEFAULT 0, 
+   `volume` DECIMAL(8,2) NOT NULL DEFAULT 0, 
+   `image` VARCHAR(255),
+   `ipe` TINYINT(1) NOT NULL DEFAULT 0,
+   `absolete` TINYINT(1) NOT NULL DEFAULT 0,
+   `commonwealth` TINYINT(1) NOT NULL DEFAULT 0,
+   `id_related_article` INT,
+   `id_equivalent_article` INT,
+   `id_subcategory` INT,
+   `id_location_subcategory` INT,
+
+   PRIMARY KEY (`id`),
+   INDEX (`name`, `id_related_article`, `id_equivalent_article`, `id_subcategory`, `id_location_subcategory`)    
+) ENGINE=innodb;

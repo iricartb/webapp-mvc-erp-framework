@@ -1,0 +1,70 @@
+.breadcrumb {
+   display: block;
+   padding: 0.5rem 0.77778rem 0.5rem;
+   overflow: hidden;
+   margin-left: 0;
+   list-style: none;
+   border-style: solid;
+   border-width: 1px;
+   background-color: #f4f4f4;
+   border-color: gainsboro;
+   -webkit-border-radius: 3px;
+   border-radius: 3px; 
+}
+
+.breadcrumb > * {
+   margin: 0;
+   float: left;
+   font-size: 0.61111rem;
+   text-transform: uppercase; 
+}
+
+.breadcrumb > *:hover a, .breadcrumb > *:focus a {
+   text-decoration: underline; 
+}
+    
+.breadcrumb > * a, .breadcrumb > * span {
+   text-transform: uppercase;
+   color: #008cba; 
+}
+
+.breadcrumb > *.current {
+   cursor: default;
+   color: #333333; 
+}
+
+.breadcrumb > *.current a {
+   cursor: default;
+   color: #333333; 
+}
+
+.breadcrumb > *.current:hover, .breadcrumb > *.current:hover a, .breadcrumb > *.current:focus, .breadcrumb > *.current:focus a {
+   text-decoration: none; 
+}
+    
+.breadcrumb > *.unavailable {
+   color: #999999; 
+}
+      
+.breadcrumb > *.unavailable a {
+   color: #999999; 
+}
+
+.breadcrumb > *.unavailable:hover, .breadcrumb > *.unavailable:hover a, .breadcrumb > *.unavailable:focus, .breadcrumb > *.unavailable a:focus {
+   text-decoration: none;
+   color: #999999;
+   cursor: default; 
+}
+
+.breadcrumb > *:before {
+   content: "/";
+   color: #aaaaaa;
+   margin: 0 0.66667rem;
+   position: relative;
+   top: 1px; 
+}
+
+.breadcrumb > *:first-child:before {
+   content: " ";
+   margin: 0; 
+}

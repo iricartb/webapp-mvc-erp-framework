@@ -1,0 +1,39 @@
+<div class="container_decoration_popup">
+   <?php $this->widget('zii.widgets.CDetailView', array(
+      'data'=>$oModelForm,
+      'attributes'=>array(
+         array(
+            'name'=>'id',
+         ),
+         array(
+            'name'=>'name',
+         ),
+         array(
+            'name'=>'nif',
+         ),
+         array(
+            'name'=>'contact',
+         ),
+         array(
+            'name'=>'address',
+         ),
+         array(
+            'name'=>'phone',
+            'value'=>FFormat::getFormatPhone($oModelForm->phone),
+         ),
+         array(
+            'name'=>'fax',
+            'value'=>FFormat::getFormatPhone($oModelForm->fax),
+         ),
+         array(
+            'name'=>'mail',
+         ),
+         array(
+            'name'=>'www',
+            'value'=>(strlen($oModelForm->www) > 0) ? 'http://' . $oModelForm->www : '',
+         ),
+      ),
+      'nullDisplay'=>'--',
+   ));
+   ?>
+</div>

@@ -1,0 +1,157 @@
+.fancybox-inner {
+   overflow: hidden !important;
+}
+
+.item-header {
+   margin-bottom: 20px;
+}
+
+.item-image {
+   margin-bottom: 5px; 
+   text-align: center;
+}
+
+.item-image-fade-round-border {
+   border-radius: 10px; 
+   -moz-border-radius: 10px; 
+   -khtml-border-radius: 10px; 
+   -webkit-border-radius: 10px; 
+}
+
+.item-image-fade-20-round-border {
+   border-radius: 10px; 
+   -moz-border-radius: 10px; 
+   -khtml-border-radius: 10px; 
+   -webkit-border-radius: 10px; 
+}
+
+.item-image-normal-round-border {
+   border-radius: 10px; 
+   -moz-border-radius: 10px; 
+   -khtml-border-radius: 10px; 
+   -webkit-border-radius: 10px; 
+}
+
+.item-image-description-center {
+   text-align: center; 
+}
+
+.item-header-image {
+   float: left;
+   padding-right: 10px; 
+}
+
+.item-header-text {
+   padding-top: 18px;
+   font-weight: bold;
+   font-size: 13px;
+}
+
+.item-header-description {
+   margin-bottom: 30px;
+}
+
+.item-header-description-padding {
+   padding-left: 58px;
+   margin-bottom: 30px;
+}
+
+.item-description {
+   margin-bottom: 10px;
+}
+
+.item-description-note {
+   font-size: 11px; 
+}
+
+.item-description-italic {
+   margin-bottom: 10px;
+   font-style: italic;
+}
+
+.item-description-padding {
+   padding-left: 58px;
+   margin-bottom: 10px;
+}
+
+.item-description-padding-italic {
+   padding-left: 58px;
+   margin-bottom: 10px;
+   font-style: italic;
+}
+
+.item-sub-description-padding {
+   padding-left: 110px;
+   margin-bottom: 10px;
+}
+
+.item-small-header-image { 
+   float: left;
+   padding-right: 10px;   
+}
+
+.item-small-header-text { 
+   float: left;
+   padding-top: 3px;   
+}
+
+.item_link {
+   text-decoration: underline; 
+   color: #09f; 
+}
+
+.item_link:hover {
+   cursor: pointer;
+}
+
+.fancybox-nav {
+   width: 18% !important;   
+}
+
+.detail_content .first_row_header {
+   display: table;
+   padding-bottom: 7px;
+   text-decoration: underline;
+}
+
+.detail_content .row_header {
+   display: table;
+   padding-top: 20px;
+   padding-bottom: 7px;
+   text-decoration: underline;
+}
+
+#aj_loading {
+   position: fixed; 
+   width: 100%; 
+   height: 100%; 
+   left: 0%; 
+   top: 0%; 
+   background-color: rgba(0, 0, 0, 0.75); 
+   z-index: 9999; 
+   display: none;
+}
+
+#aj_loading_content {
+   position: fixed; 
+   width: 280px;
+   height: 40px;
+   left: 50%; 
+   top: 50%;
+   margin: -20px 0 0 -140px;
+   border-radius: 7px;
+   background-color: rgba(0, 0, 0, 0.9);
+}
+
+#aj_loading_text {
+   font-family: Verdana; 
+   font-size: 14px; 
+   color: white;
+   text-align: center;
+   margin-top: 10px;
+}
+
+.cbuttoncolumn_green {
+   color: green;
+   text-decoration: none;
+}

@@ -1,0 +1,100 @@
+.scene_legend_items { 
+   float: left;
+   min-height: 100px;
+   margin-bottom: 15px;   
+}
+
+.scene_legend_items .item {
+   float: left;
+   width: 81px; 
+   height: 50px;
+   margin-right: 15px; 
+   margin-bottom: 75px; 
+   text-align: center;
+}                 
+
+.scene_legend_items .item .label {
+   font-size: 9px;
+   width: 100%;
+   text-align: center;
+}
+
+.scene .scene_toolbox {
+   clear: both;
+   width: 860px;
+   position: relative;
+   font-size: 11px;
+   height: 32px;  
+}
+
+.scene .scene_toolbox .title {
+   position: absolute;   
+   width: 100%;
+   text-align: center;
+   color: black;
+   bottom: 0; 
+   padding-bottom: 5px;
+}
+
+.scene .scene_toolbox .options {
+   position: absolute;  
+   left: 0px;
+}
+
+.scene .scene_toolbox .options .back {
+   float: right;   
+}
+
+.scene .scene_toolbox .options .back:hover {
+   cursor: pointer;  
+}
+
+.scene .scene_toolbox .options .label {
+   float: right; 
+   padding-left: 5px; 
+   padding-top: 1px;
+}
+
+.scene .scene_toolbox .options_buttons {
+   position: absolute;
+   right: 0px;   
+}
+
+.scene .scene_toolbox .options_buttons .button {
+   float: left;  
+}
+
+.scene .scene_map {
+   position: relative;
+   width: 860px;
+   height: 600px;
+   border: 1px solid darkgray;  
+
+   background-image: url(../../../images/rainbow/scene/background.jpg);
+   background-size: 100% 100%;                  
+   background-repeat: no-repeat;
+   background-position: center center; 
+   filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/rainbow/scene/background.jpg', sizingMethod='scale');
+   -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/rainbow/scene/background.jpg', sizingMethod='scale')";
+}
+
+.scene .scene_map .scene_item {
+   position: absolute;
+   display: none;
+}
+
+.scene .scene_map .scene_item:hover {
+   cursor: pointer;   
+}
+
+.scene .scene_map .scene_item_label {
+   position: absolute;
+   font-size: 11px;
+   background-color: white;
+   color: #333;
+   padding-left: 8px;
+   padding-right: 8px;
+   padding-bottom: 2px;
+   border-radius: 4px;  
+   font-weight: bold;
+}
